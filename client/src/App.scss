@@ -1,0 +1,325 @@
+@import url("https://fonts.googleapis.com/css2?family=Meow+Script&family=Noto+Sans:wght@400;700&display=swap");
+@font-face {
+    font-family: Input Sans;
+    src: url(./fonts/InputSans-Light.ttf);
+    font-weight: 300;
+}
+
+$primary-color: #202e3b;
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    font-family: "Noto Sans", sans-serif;
+    line-height: 1.4;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    margin: 0.3125rem 0;
+    line-height: 1.7;
+    font-family: "Input Sans";
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+.icon {
+    height: 20px;
+    width: 20px;
+}
+
+// Button
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    background: none;
+    color: white;
+    border: 1px white solid;
+    border-radius: 3px;
+    padding: 0.6rem 1.4rem;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-feature {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+        background-color: white;
+        color: black;
+    }
+}
+
+// Feature Landing
+.feature-container {
+    height: 100vh;
+    background-image: url(./res/feature.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.feature-brand {
+    display: flex;
+    justify-content: center;
+    font-family: "Input Sans";
+    margin: 0;
+    padding: 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-size: 0.9rem;
+}
+
+.feature {
+    display: flex;
+    height: 85vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 4.5rem;
+        margin-top: 0.75rem;
+    }
+}
+
+// Feature Products
+.featured-products {
+    width: 100%;
+    height: auto;
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-family: "Input Sans";
+        max-width: 50%;
+    }
+
+    .btn {
+        border: 1px black solid;
+        color: black;
+    }
+
+    .btn-feature {
+        font-size: 1rem;
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+}
+
+.grid-col-2 {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin: 4rem 0;
+}
+
+.item {
+    text-align: center;
+
+    h4 {
+        margin-top: 0.75rem;
+    }
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 2rem auto;
+}
+
+.product-highlight {
+    width: 100%;
+    height: auto;
+}
+
+.highlight-container {
+    max-width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+
+    &.reversed {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+.box {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+    color: white;
+
+    .btn {
+        background-color: white;
+        color: black;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-top: 2rem;
+    }
+
+    h3 {
+        font-size: 4rem;
+        text-transform: uppercase;
+    }
+
+    &.product5 {
+        background-image: url(./res/product5.jpg);
+    }
+
+    &.product6 {
+        background-image: url(./res/product6.jpg);
+    }
+
+    &.product7 {
+        background-image: url(./res/product7.jpg);
+    }
+
+    &.product8 {
+        background-image: url(./res/product8.jpg);
+    }
+    &.product9 {
+        background-image: url(./res/product9.jpg);
+    }
+    &.product10 {
+        background-image: url(./res/product10.jpg);
+    }
+}
+
+// Footer
+footer {
+    .divider {
+        width: 93%;
+        margin-top: 5rem;
+        margin-bottom: 4rem;
+    }
+}
+
+.footer {
+    width: 100%;
+    height: 10rem;
+}
+
+.footer-container {
+    max-width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 auto;
+}
+
+.social {
+    cursor: pointer;
+    display: inline-block;
+    background: none;
+    border: 1.5px black solid;
+    border-radius: 3px;
+    padding: 0.5rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    margin-top: 2rem;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+        background-color: black;
+
+        img {
+            filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(159deg) brightness(104%) contrast(103%);
+        }
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+        transition: all 0.2s ease-in;
+    }
+}
+
+// Navbar
+.navbar {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.navbar-container {
+    max-width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.brand {
+    font-family: "Meow Script";
+    font-size: 2.5rem;
+    color: $primary-color;
+}
+
+.navbar-nav-left {
+    display: flex;
+    justify-self: center;
+    margin-right: 6.5rem;
+
+    li {
+        padding-right: 1rem;
+    }
+
+    a {
+        text-transform: uppercase;
+        padding: 1rem;
+
+        &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.05);
+        }
+    }
+}
