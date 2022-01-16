@@ -25,7 +25,7 @@ const Navbar = () => {
                 </ul>
 
                 <div className="navbar-nav-right">
-                    <NavLink to='/'>
+                    <NavLink to='/cart'>
                         <img src={cart} alt="cart" className='icon' />
                         <span className='cart-badge'>0</span>
                     </NavLink>

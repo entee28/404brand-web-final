@@ -20,7 +20,7 @@ const Shop = (props) => {
                         <div className='product'>
                             <img src={products.imageUrl} alt={products.name} />
                             <h2>{products.name}</h2>
-                            <p>{products.price}$</p>
+                            <p>${products.price}</p>
                         </div>
                     ))}
                 </div>
