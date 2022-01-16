@@ -140,13 +140,18 @@ a {
             color: white;
         }
     }
+
+    img {
+        width: 60%;
+        height: auto;
+    }
 }
 
 .grid-col-2 {
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
     margin: 4rem 0;
 }
 
@@ -201,6 +206,11 @@ a {
         font-weight: bold;
         font-size: 1rem;
         margin-top: 2rem;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+            padding: 0.7rem 2rem;
+        }
     }
 
     h3 {
@@ -321,5 +331,37 @@ footer {
         &:hover {
             background-color: rgba($color: #000000, $alpha: 0.05);
         }
+    }
+}
+
+.cart-badge {
+    margin-left: 0.2rem;
+    font-size: 1rem;
+}
+
+// Shop
+.shop {
+    width: 100%;
+    height: auto;
+}
+
+.shop-grid {
+    display: grid;
+    max-width: 95%;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 80%;
+        height: auto;
+        margin-bottom: 2rem;
     }
 }

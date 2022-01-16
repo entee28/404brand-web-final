@@ -14,7 +14,7 @@ const Navbar = () => {
 
                 <ul className="navbar-nav-left">
                     <li>
-                        <NavLink to='/'>Shop</NavLink>
+                        <NavLink to='/shop'>Shop</NavLink>
                     </li>
                     <li>
                         <NavLink to='/'>About</NavLink>
@@ -25,7 +25,10 @@ const Navbar = () => {
                 </ul>
 
                 <div className="navbar-nav-right">
-                    <NavLink to='/'><img src={cart} alt="cart" className='icon' /></NavLink>
+                    <NavLink to='/'>
+                        <img src={cart} alt="cart" className='icon' />
+                        <span className='cart-badge'>0</span>
+                    </NavLink>
                 </div>
             </div>
         </nav>

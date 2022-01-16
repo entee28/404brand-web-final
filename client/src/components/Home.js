@@ -12,30 +12,25 @@ const Home = () => {
             <FeatureLanding />
             <Navbar />
             <div className='featured-products'>
-                <h3>The Keyboard Essentials</h3>
-                <p>Our best of beach essentials designed
-                    for an endless Summer. Classic Beach Umbrellas
-                    with tassels and our original Beach
-                    Chairs are made for long days at the beach
-                    to complete the perfect beach setup.
-                    Available now for Summer.</p>
-                <button className='btn btn-feature'>Shop All</button>
+                <h3>The Accessories Collection</h3>
+                <p>Just give us your money ™</p>
+                <button className='btn btn-feature'>Make us rich</button>
                 <div className='grid-col-2'>
                     <div className='item'>
                         <img src={product1} alt="product" />
-                        <h4>Switches</h4>
+                        <h4>Darkplates</h4>
                     </div>
                     <div className='item'>
                         <img src={product2} alt="product" />
-                        <h4>Keycaps</h4>
+                        <h4>Pastels</h4>
                     </div>
                     <div className='item'>
                         <img src={product3} alt="product" />
-                        <h4>Palm Rest</h4>
+                        <h4>Skins</h4>
                     </div>
                     <div className='item'>
                         <img src={product4} alt="product" />
-                        <h4>Other Accessories</h4>
+                        <h4>Teardown</h4>
                     </div>
                 </div>
             </div>
@@ -67,9 +62,9 @@ const Home = () => {
                 </div>
                 <div className="highlight-container">
                     <div className="box product9">
-                        <p>Protect your fruit..</p>
-                        <h3>IPHONE CASES</h3>
-                        <button className='btn'>Make Us Rich</button>
+                        <p>Because vaccines won't make you less ugly.</p>
+                        <h3>MASKS</h3>
+                        <button className='btn'>Hide Your Face</button>
                     </div>
                     <div className="box product10">
                         <p>Losing your shit has never been more expensive.</p>
