@@ -13,13 +13,11 @@ const Product = ({ match, history }) => {
     const dispatch = useDispatch();
 
     const productDetails = useSelector(state => state.productDetails);
-    const { loading, error, product } = productDetails;
+    const { product } = productDetails;
 
     useEffect(() => {
         if (product && match.params.id !== product._id) {
             dispatch(getProductDetails(match.params.id))
-        } else {
-            console.log('something happened')
         }
     }, [dispatch, product, match])
 

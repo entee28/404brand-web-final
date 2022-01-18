@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const Shop = (props) => {
     useEffect(() => {
         props.getProducts()
-    }, [])
+    })
 
     const { products } = props.product;
 
@@ -18,7 +18,7 @@ const Shop = (props) => {
             <div className="shop">
                 <div className="shop-grid">
                     {products.map((products) => (
-                        <Link to={`/product/${products._id}`}>
+                        <Link to={`/product/${products._id}`} key={products._id}>
                             <div className='product'>
                                 <img src={products.imageUrl} alt={products.name} />
                                 <h2>{products.name}</h2>

@@ -1,8 +1,14 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import cart from '../res/bag.svg'
+import cartt from '../res/bag.svg'
+import { useSelector } from 'react-redux'
 
-const Navbar = () => {
+const Navbar = ({ click }) => {
+    const cart = useSelector(state => state.cart);
+    const { cartItems } = cart;
+
+    const getCartCount = () => cartItems.length;
+
     return (
         <nav className='navbar'>
             <div className='navbar-container'>
@@ -26,8 +32,8 @@ const Navbar = () => {
 
                 <div className="navbar-nav-right">
                     <NavLink to='/cart'>
-                        <img src={cart} alt="cart" className='icon' />
-                        <span className='cart-badge'>0</span>
+                        <img src={cartt} alt="cart" className='icon' />
+                        <span className='cart-badge'>{getCartCount()}</span>
                     </NavLink>
                 </div>
             </div>
