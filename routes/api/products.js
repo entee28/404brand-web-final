@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 //  @route GET api/products/:id
 //  @desc Get A Products By ID
 //  @access Public
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
     Product.findById(req.params.id)
         .then(product => res.json(product))
         .catch(err => res.status(404).json({ success: false }))
@@ -37,10 +37,10 @@ router.post('/', (req, res) => {
     newProduct.save().then(product => res.json(product))
 })
 
-// @route DELETE api/products
+// @route DELETE api/products/:id
 // @desc Delete A Product
 // @access Public
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
     Product.findById(req.params.id)
         .then(product => product.remove().then(() => res.json({ success: true })))
         .catch(err => res.status(404).json({ success: false }))

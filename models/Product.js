@@ -20,7 +20,10 @@ const ProductSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         required: true
-    }
+    },
+    // categories: { type: Array },
+    // size: { type: Array },
+    // color: { type: Array },
 })
 
 module.exports = Product = mongoose.model('product', ProductSchema);

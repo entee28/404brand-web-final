@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING } from "../actions/types";
+import { GET_PRODUCTS, GET_PRODUCTS_FAIL, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING } from "../actions/types";
 
 const initialState = {
     products: [],
@@ -12,6 +12,11 @@ export default function (state = initialState, action) {
                 ...state,
                 products: action.payload,
                 loading: false
+            };
+        case GET_PRODUCTS_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
             };
         case DELETE_PRODUCT:
             return {

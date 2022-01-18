@@ -1,27 +1,38 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import product8 from '../res/product8.jpg'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import trash from '../res/trash.svg'
+import plus from '../res/plus.svg'
+import dash from '../res/dash.svg'
 
-const CartItem = () => {
+const CartItem = ({ item, qtyChangeHandler }) => {
+    const [qty, setQty] = useState(item.qty);
+
+    const handleQuantity = (type) => {
+        if (type === 'dec') {
+            qty > 1 && setQty(qty - 1);
+        } else {
+            qty < item.countInStock && setQty(qty + 1);
+        }
+        qtyChangeHandler(item.product, qty);
+    }
+
     return (
         <div className='cartitem'>
             <div className="cartitem_image">
-                <img src={product8} alt="product8" />
+                <img src={item.imageUrl} alt={item.name} />
             </div>
 
-            <NavLink to={`/product/${111}`} className="cartitem_name">
-                <p>Product 1</p>
-            </NavLink>
+            <Link to={`/product/${item.product}`} className="cartitem_name">
+                <p>{item.name}</p>
+            </Link>
 
-            <p className='cartitem_price'>$29.95</p>
+            <p className='cartitem_price'>${item.price}</p>
 
-            <select name="" id="" className='cartitem_select'>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+            <div className="amount-container">
+                <button onClick={() => handleQuantity('dec')} className='plus-dash'><img src={dash} alt="dash" /></button>
+                <span className="amount">{qty}</span>
+                <button onClick={() => handleQuantity('inc')} className='plus-dash'><img src={plus} alt="plus" /></button>
+            </div>
 
             <button className="cartitem_deleteBtn">
                 <img src={trash} alt="trash" className='icon' />

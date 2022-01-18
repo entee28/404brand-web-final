@@ -56,6 +56,10 @@ img {
     line-height: 1.2;
     text-align: center;
     text-decoration: none;
+
+    &.btn-disabled {
+        color: rgb(114, 112, 112) !important;
+    }
 }
 
 .btn-feature {
@@ -69,6 +73,15 @@ img {
         background-color: white;
         color: black;
     }
+}
+
+.btn-disabled {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    transition: all 0.2s ease-in;
+    cursor: not-allowed;
 }
 
 // Feature Landing
@@ -468,6 +481,83 @@ footer {
     }
 }
 
+// Product page
+.wrapper {
+    padding: 10rem;
+    display: flex;
+}
+
+.img-container {
+    flex: 1;
+
+    img {
+        width: 80%;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+.info-container {
+    flex: 1;
+    padding: 0 3rem;
+
+    p {
+        margin: 1.25rem 0;
+    }
+
+    .btn {
+        border: 1px black solid;
+        color: black;
+    }
+
+    .btn-feature {
+        font-size: 1rem;
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+}
+
+.add-container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.plus-dash {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.amount-container {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.amount {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #171717;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    padding: 1rem;
+}
+
+.price {
+    font-size: 2.5rem;
+}
 // Cart Screen Media
 @media (max-width: 1320px) {
     .cartscreen {

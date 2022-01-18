@@ -1,10 +1,22 @@
 import axios from 'axios'
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING } from "./types";
+import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING, GET_PRODUCTS_FAIL, GET_PRODUCT_DETAILS_SUCCESS, GET_PRODUCT_DETAILS, GET_PRODUCT_DETAILS_RESET, GET_PRODUCT_DETAILS_FAIL } from "./types";
 
 export const setProductsLoading = () => {
     return {
         type: PRODUCTS_LOADING
     }
+}
+
+export const setProductDetailsLoading = () => {
+    return {
+        type: GET_PRODUCT_DETAILS
+    }
+}
+
+export const removeProductDetails = () => dispatch => {
+    dispatch({
+        type: GET_PRODUCT_DETAILS_RESET
+    })
 }
 
 export const getProducts = () => dispatch => {
@@ -13,6 +25,23 @@ export const getProducts = () => dispatch => {
         .then(res => dispatch({
             type: GET_PRODUCTS,
             payload: res.data
+        }))
+        .catch(error => dispatch({
+            type: GET_PRODUCTS_FAIL,
+            payload: error.payload && error.response.data.message ? error.response.data.message : error.message
+        }))
+}
+
+export const getProductDetails = (id) => dispatch => {
+    dispatch(setProductDetailsLoading);
+    axios.get(`/api/products/${id}`)
+        .then(res => dispatch({
+            type: GET_PRODUCT_DETAILS_SUCCESS,
+            payload: res.data
+        }))
+        .catch(error => dispatch({
+            type: GET_PRODUCT_DETAILS_FAIL,
+            payload: error.payload && error.response.data.message ? error.response.data.message : error.message
         }))
 }
 
