@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import cartt from '../res/bag.svg'
+import person from '../res/person-fill.svg'
 import { useSelector } from 'react-redux'
 
 const Navbar = ({ click }) => {
@@ -30,12 +31,19 @@ const Navbar = ({ click }) => {
                     </li>
                 </ul>
 
-                <div className="navbar-nav-right">
-                    <NavLink to='/cart'>
-                        <img src={cartt} alt="cart" className='icon' />
-                        <span className='cart-badge'>{getCartCount()}</span>
-                    </NavLink>
-                </div>
+                <ul className="navbar-nav-right">
+                    <li>
+                        <NavLink to='/login'>
+                            <img src={person} alt="cart" className='icon' />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/cart'>
+                            <img src={cartt} alt="cart" className='icon' />
+                            <span className='cart-badge'>{getCartCount()}</span>
+                        </NavLink>
+                    </li>
+                </ul>
             </div>
         </nav>
     )

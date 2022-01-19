@@ -29,9 +29,7 @@ const Contact = () => {
                 <p className='p-warning'>Due to the ongoing COVID-19 pandemic, shipping timelines for some countries have been impacted. You can expect a response within 7-10 business days</p>
                 <button className='btn btn-feature'>Email us</button>
 
-                <form data-netlify="true" className='form-flex' value="sentMessage" onSubmit={handleSubmit(onSubmit)}>
-                    <input type="hidden" name="form-name" value="contact" />
-
+                <form className='form-flex' value="sentMessage" onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-row">
                         <label htmlFor="name" className='input'>
                             <input type="text" className="input__field" placeholder=' ' name='name' id='name'
