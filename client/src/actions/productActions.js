@@ -54,7 +54,7 @@ export const deleteProduct = (id) => dispatch => {
 }
 
 export const addProduct = (product) => dispatch => {
-    axios.post('api/products', product)
+    axios.post('/api/products', product)
         .then(res => dispatch({
             type: ADD_PRODUCT,
             payload: res.data

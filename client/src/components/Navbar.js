@@ -20,13 +20,13 @@ const Navbar = ({ click }) => {
 
                 <ul className="navbar-nav-left">
                     <li>
-                        <NavLink to='/shop'>Shop</NavLink>
+                        <NavLink to='/shop' activeClassName='selected-nav'>Shop</NavLink>
                     </li>
                     <li>
                         <NavLink to='/'>About</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/'>Contact</NavLink>
+                        <NavLink to='/contact' activeClassName='selected-nav'>Contact</NavLink>
                     </li>
                 </ul>
 
