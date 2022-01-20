@@ -14,11 +14,12 @@
   "author": "Thanh Nguyen",
   "license": "MIT",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.6"
+    "mongoose": "^6.1.6",
+    "stripe": "^8.198.0"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",

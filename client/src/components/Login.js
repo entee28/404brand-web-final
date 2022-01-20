@@ -35,6 +35,7 @@ const Login = () => {
 
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                         </form>
+                        <Link to='/register'>Already forgot your password?</Link>
                         <p className='no-account'>Don't have an account? <Link to='/register'>Create one</Link></p>
                     </div>
                 </div>

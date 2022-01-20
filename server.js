@@ -19,6 +19,10 @@ mongoose.connect(process.env.mongoURI || config.get('mongoURI'), {
 // Use Routes
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/contacts', require('./routes/api/contacts'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/cart', require('./routes/api/cart'));
+app.use('/api/orders', require('./routes/api/orders'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
