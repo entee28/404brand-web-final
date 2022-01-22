@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../actions/authActions';
+
 
 const Login = () => {
+    const [msg, setMsg] = useState(null);
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        alert('hello')
+        dispatch(login(data));
     };
+
+    function usePrevious(value) {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    }
+
+    const dispatch = useDispatch();
+    const errorState = useSelector(state => state.error);
+    const prevError = usePrevious({ errorState });
+
+    useEffect(() => {
+        if (prevError !== errorState) {
+            if (errorState.id === 'LOGIN_FAIL') {
+                setMsg(errorState.msg.error)
+            } else {
+                setMsg(null);
+            }
+        }
+    }, [errorState, prevError, msg])
 
     return (
         <>
@@ -20,19 +47,26 @@ const Login = () => {
                             <div className="input-row">
                                 <label htmlFor="username" className='input'>
                                     <input type='text' className="input__field" placeholder=' ' name='username' id='username'
-                                        {...register("username")} />
+                                        {...register("username", {
+                                            required: true
+                                        })} />
                                     <span className="input__label">Username</span>
                                 </label>
+                                {errors?.username?.type === "required" && <p className='error'>This field is required</p>}
                             </div>
 
                             <div className="input-row">
                                 <label htmlFor="password" className='input'>
                                     <input type='password' className="input__field" placeholder=' ' name='password' id='password'
-                                        {...register("password")} />
+                                        {...register("password", {
+                                            required: true
+                                        })} />
                                     <span className="input__label">Password</span>
                                 </label>
-                            </div>
+                                {errors?.password?.type === "required" && <p className='error'>This field is required</p>}
 
+                            </div>
+                            <p className='error'>{msg === 'Wrong Credentials' ? "Invalid username or password" : null}</p>
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                         </form>
                         <Link to='/register'>Already forgot your password?</Link>

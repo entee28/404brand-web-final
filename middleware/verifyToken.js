@@ -1,17 +1,18 @@
 const config = require('config');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const ErrorResponse = require('../utils/errorResponse');
 
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.token;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, config.get('JWT_SEC'), (err, user) => {
-            if (err) res.status(403).json("Token is not valid!");
+            if (err) return next(new ErrorResponse("Token is not valid!", 404))
             req.user = user;
             next();
         });
     } else {
-        return res.status(401).json("You are not authenticated!");
+        return next(new ErrorResponse("Not authorized to access this route", 401));
     }
 };
 

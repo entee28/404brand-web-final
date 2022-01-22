@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
+const errorHandler = require('./middleware/error')
 
 const app = express();
 
@@ -23,6 +24,10 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/cart', require('./routes/api/cart'));
 app.use('/api/orders', require('./routes/api/orders'));
+app.use('/api/checkout', require('./routes/api/stripe'));
+
+// Error Handler
+app.use(errorHandler);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

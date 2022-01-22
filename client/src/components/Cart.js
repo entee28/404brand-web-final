@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { decCart, incCart, removeFromCart } from '../actions/cartActions'
 import CartItem from './CartItem'
 import Navbar from './Navbar'
 import StripeCheckout from 'react-stripe-checkout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { userRequest } from '../requestMethods'
 
 const Cart = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -34,6 +36,18 @@ const Cart = () => {
         setStripeToken(token);
     }
 
+    useEffect(() => {
+        const makeRequest = async () => {
+            try {
+                const res = await userRequest.post('/api/checkout/payment', {
+                    tokenId: stripeToken.id,
+                    amount: getCartSubTotal().toFixed(2) * 100,
+                });
+                history.push('/success', { data: res.data });
+            } catch { }
+        };
+        stripeToken && makeRequest();
+    }, [stripeToken, history])
     return (
         <div>
             <Navbar />

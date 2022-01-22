@@ -1,50 +1,128 @@
 const router = require('express').Router();
 const User = require('../../models/User');
-const CryptoJS = require('crypto-js')
 const config = require('config')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const ErrorResponse = require('../../utils/errorResponse');
+const sendEmail = require('../../utils/sendEmail');
+const crypto = require('crypto')
 
 // @route POST api/auth/register
 // @desc Register User
 // @access Public
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
     const newUser = new User({
         username: req.body.username,
         email: req.body.email,
-        password: CryptoJS.AES.encrypt(req.body.password, config.get('PASS_SEC').toString()),
+        password: req.body.password,
     });
 
-    newUser.save().then(user => res.status(201).json(user)).catch(err => res.status(500).json(err));
+    newUser.save().then(user => res.status(201).json({
+        success: true,
+        token: user.getSignedToken()
+    })).catch(err => next(err));
 })
 
 // @route POST api/auth/Login
 // @desc Login
 // @access Public
-router.post('/login', async (req, res) => {
-    User.findOne({ username: req.body.username })
+router.post('/login', async (req, res, next) => {
+    if (!req.body.username || !req.body.password) {
+        return next(new ErrorResponse("Please provide an email and password", 400))
+    }
+
+    User.findOne({ username: req.body.username }).select("+password")
         .then(user => {
             if (!user) {
-                return res.status(401).json({ msg: 'Wrong credentials!' });
+                return next(new ErrorResponse("Wrong Credentials", 401))
             }
 
-            const hashedPassword = CryptoJS.AES.decrypt(
-                user.password,
-                config.get('PASS_SEC')
-            );
-            const ogPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-            if (ogPassword !== req.body.password) {
-                return res.status(401).json({ msg: 'Wrong credentials!' });
-            }
+            user.matchPassword(req.body.password)
+                .then(isMatch => {
+                    if (!isMatch) {
+                        return next(new ErrorResponse("Wrong Credentials", 401))
+                    }
 
-            const accessToken = jwt.sign({
-                id: user._id,
-                isAdmin: user.isAdmin
-            }, config.get("JWT_SEC"),
-                { expiresIn: '3d' })
-            const { password, ...others } = user._doc;
-            res.status(200).json({ ...others, accessToken });
-        }).catch(err => res.status(500).json(err));
+                    return res.status(200).json({
+                        success: true,
+                        token: user.getSignedToken()
+                    })
+                })
+        }).catch(err => next(err));
 })
+
+const forgotPassword = async (req, res, next) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) return next(new ErrorResponse("Email could not be sent", 404));
+
+        const resetToken = user.getResetPasswordToken();
+
+        await user.save();
+
+        const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
+
+        const message = `
+            <h1>You have requested a password reset</h1>
+            <p>Please go to this link to reset your password</p>
+            <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+        `
+        try {
+            await sendEmail({
+                to: user.email,
+                subject: "Password Reset Request",
+                text: message
+            });
+
+            res.status(200).json({ success: true, data: "Email Sent" })
+        } catch (error) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+
+            await user.save();
+
+            return next(new ErrorResponse(error, 500))
+        }
+    } catch (err) { next(err) }
+}
+
+const resetPassword = async (req, res, next) => {
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
+
+    try {
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        })
+
+        if (!user) {
+            return next(new ErrorResponse("Invalid Reset Token", 401))
+        }
+
+        user.password = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save();
+
+        res.status(200).json({ success: true, data: "Password Reset Success" })
+
+    } catch (err) {
+        next(err)
+    }
+}
+
+// @route POST api/auth/forgotpassword
+// @desc Forget Password
+// @access Public
+router.route("/forgotpassword").post(forgotPassword);
+
+// @route PUT api/auth/forgotpassword
+// @desc Reset Password
+// @access Public
+router.route("/resetpassword/:resetToken").put(resetPassword);
 
 
 module.exports = router;

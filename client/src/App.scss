@@ -71,6 +71,11 @@ img {
     &.btn-disabled {
         color: rgb(114, 112, 112) !important;
     }
+
+    &:disabled {
+        color: rgb(114, 112, 112);
+        cursor: not-allowed;
+    }
 }
 
 .btn-feature {
