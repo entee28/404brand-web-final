@@ -10,12 +10,23 @@ import Contact from './components/Contact';
 import Register from './components/Register';
 import Login from './components/Login';
 import Success from './components/Success';
-import { useSelector } from 'react-redux';
 import ResetPassword from './components/ResetPassword';
 import ForgotPassword from './components/ForgotPassword';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { loadUser } from './actions/authActions';
+
+
 function App() {
-  let user = null;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [])
+
+  const auth = useSelector(state => state.auth);
+  const { isAuthenticated } = auth;
+
   return (
     <BrowserRouter>
       <Switch>
@@ -26,16 +37,16 @@ function App() {
         <Route component={Product} path='/product/:id' />
         <Route component={Success} path='/success' />
         <Route component={Login} path='/login'>
-          {user ? <Redirect to="/" /> : <Login />}
+          {isAuthenticated ? <Redirect to="/" /> : <Login />}
         </Route>
         <Route component={Register} path='/register' >
-          {user ? <Redirect to="/" /> : <Register />}
+          {isAuthenticated ? <Redirect to="/" /> : <Register />}
         </Route>
         <Route component={ResetPassword} path='/passwordreset/:resetToken' >
-          {user ? <Redirect to="/" /> : <ResetPassword />}
+          {isAuthenticated ? <Redirect to="/" /> : <ResetPassword />}
         </Route>
         <Route component={ForgotPassword} path='/forgotpassword' >
-          {user ? <Redirect to="/" /> : <ForgotPassword />}
+          {isAuthenticated ? <Redirect to="/" /> : <ForgotPassword />}
         </Route>
       </Switch>
       <Footer />

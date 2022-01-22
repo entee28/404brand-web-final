@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const ErrorResponse = require('../utils/errorResponse');
 
 const verifyToken = (req, res, next) => {
-    const authHeader = req.headers.token;
+    const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, config.get('JWT_SEC'), (err, user) => {

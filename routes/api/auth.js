@@ -4,7 +4,8 @@ const config = require('config')
 const jwt = require('jsonwebtoken');
 const ErrorResponse = require('../../utils/errorResponse');
 const sendEmail = require('../../utils/sendEmail');
-const crypto = require('crypto')
+const crypto = require('crypto');
+const { verifyToken } = require('../../middleware/verifyToken');
 
 // @route POST api/auth/register
 // @desc Register User
@@ -124,5 +125,13 @@ router.route("/forgotpassword").post(forgotPassword);
 // @access Public
 router.route("/resetpassword/:resetToken").put(resetPassword);
 
+// @route   GET api/auth/user
+// @desc    Get user data
+// @access  Private
+router.get('/user', verifyToken, (req, res) => {
+    User.findById(req.user.id)
+        .select('-password')
+        .then(user => res.json(user))
+})
 
 module.exports = router;
