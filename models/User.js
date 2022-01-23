@@ -5,11 +5,6 @@ const config = require('config');
 const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: [true, "Please provide a username"],
-        unique: true
-    },
     firstname: {
         type: String,
         required: [true, "Please provide first name"],
@@ -21,7 +16,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Please provide an email"],
-        unique: true,
+        unique: [true, "Email has already been existed"],
         match: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             "Please provide a valid email",

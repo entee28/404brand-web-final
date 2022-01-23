@@ -5,6 +5,7 @@ import person from '../res/person-fill.svg'
 import boxarrowleft from '../res/box-arrow-left.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/authActions'
+import { clearErrors } from '../actions/errorActions'
 
 const Navbar = ({ click }) => {
     const cart = useSelector(state => state.cart);
@@ -19,6 +20,10 @@ const Navbar = ({ click }) => {
 
     const handleLogout = () => {
         dispatch(logout());
+    }
+
+    const handleAuthClick = () => {
+        dispatch(clearErrors());
     }
 
     return (
@@ -53,9 +58,12 @@ const Navbar = ({ click }) => {
                                 </button>
                             ) :
                             (
-                                <NavLink to='/login'>
-                                    <img src={person} alt="cart" className='icon' />
-                                </NavLink>
+                                <button className='btn-default' onClick={handleAuthClick}>
+                                    <NavLink to='/login'>
+                                        <img src={person} alt="cart" className='icon' />
+                                    </NavLink>
+                                </button>
+
                             )}
                     </li>
                     <li>

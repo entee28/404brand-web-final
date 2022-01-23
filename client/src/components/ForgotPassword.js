@@ -18,7 +18,7 @@ const ForgotPassword = () => {
                     <div className='wrapper-flex'>
                         <h2>Forgot Password</h2>
                         <form className='form-flex' value="sentMessage" onSubmit={handleSubmit(onSubmit)}>
-                            <p>Please enter the email address you register your account with. We
+                            <p>Please enter the email address you registered your account with. We
                                 will send you reset password confirmation to this email</p>
                             <div className="input-row">
                                 <label htmlFor="email" className='input'>

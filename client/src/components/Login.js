@@ -45,14 +45,18 @@ const Login = () => {
                         <h2>Sign in</h2>
                         <form className='form-flex' value="sentMessage" onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-row">
-                                <label htmlFor="username" className='input'>
-                                    <input type='text' className="input__field" placeholder=' ' name='username' id='username'
-                                        {...register("username", {
-                                            required: true
+                                <label htmlFor="email" className='input'>
+                                    <input className="input__field" placeholder=' ' name='email' id='email'
+                                        {...register("email", {
+                                            required: true,
+                                            pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
                                         })} />
-                                    <span className="input__label">Username</span>
+                                    <span className="input__label">Email</span>
                                 </label>
-                                {errors?.username?.type === "required" && <p className='error'>This field is required</p>}
+                                {errors?.email?.type === "required" && <p className='error'>This field is required</p>}
+                                {errors?.email?.type === "pattern" && (
+                                    <p className='error'>Invalid email</p>
+                                )}
                             </div>
 
                             <div className="input-row">
@@ -69,7 +73,7 @@ const Login = () => {
                             <p className='error'>{msg === 'Wrong Credentials' ? "Invalid username or password" : null}</p>
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                         </form>
-                        <Link to='/register'>Already forgot your password?</Link>
+                        <Link to='/forgotpassword'>Already forgot your password?</Link>
                         <p className='no-account'>Don't have an account? <Link to='/register'>Create one</Link></p>
                     </div>
                 </div>

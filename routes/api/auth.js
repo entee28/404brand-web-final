@@ -12,9 +12,10 @@ const { verifyToken } = require('../../middleware/verifyToken');
 // @access Public
 router.post('/register', (req, res, next) => {
     const newUser = new User({
-        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
     });
 
     newUser.save().then(user => res.status(201).json({
@@ -27,11 +28,11 @@ router.post('/register', (req, res, next) => {
 // @desc Login
 // @access Public
 router.post('/login', async (req, res, next) => {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
         return next(new ErrorResponse("Please provide an email and password", 400))
     }
 
-    User.findOne({ username: req.body.username }).select("+password")
+    User.findOne({ email: req.body.email }).select("+password")
         .then(user => {
             if (!user) {
                 return next(new ErrorResponse("Wrong Credentials", 401))
