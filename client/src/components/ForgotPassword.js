@@ -2,13 +2,36 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const ForgotPassword = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
-        console.log('hello')
-    };
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = async (formData) => {
+        const config = {
+            header: {
+                "Content-Type": "application/json",
+            },
+        };
+
+        try {
+            const { data } = await axios.post(
+                "/api/auth/forgotpassword",
+                formData,
+                config
+            );
+
+            setSuccess(data.data);
+        } catch (error) {
+            setError(error.response.data.error);
+            setTimeout(() => {
+                setError("");
+            }, 8000);
+        }
+    };
 
     return (
         <>
@@ -34,7 +57,8 @@ const ForgotPassword = () => {
                                     <p className='error'>Invalid email</p>
                                 )}
                             </div>
-
+                            {error && <p className="error">{error}</p>}
+                            {success && <p className="success">{success}</p>}
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                             <Link to='/login'>Back to login</Link>
                         </form>

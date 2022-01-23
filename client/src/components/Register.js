@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 import { register as registerUser } from '../actions/authActions';
+import { clearErrors } from '../actions/errorActions';
 
 const Register = () => {
     const [msg, setMsg] = useState(null);
@@ -49,7 +50,10 @@ const Register = () => {
     useEffect(() => {
         if (prevError !== errorState) {
             if (errorState.id === 'REGISTER_FAIL') {
-                setMsg(errorState.msg.error)
+                setMsg(errorState.msg.error);
+                setTimeout(() => {
+                    dispatch(clearErrors());
+                }, 10000)
             } else {
                 setMsg(null);
             }

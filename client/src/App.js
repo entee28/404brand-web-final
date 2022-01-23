@@ -42,9 +42,9 @@ function App() {
         <Route component={Register} path='/register' >
           {isAuthenticated ? <Redirect to="/" /> : <Register />}
         </Route>
-        <Route component={ResetPassword} path='/passwordreset/:resetToken' >
-          {isAuthenticated ? <Redirect to="/" /> : <ResetPassword />}
-        </Route>
+        <Route component={ResetPassword} path='/passwordreset/:resetToken' />
+        {/* {isAuthenticated ? <Redirect to="/" /> : <ResetPassword />}
+        </Route> */}
         <Route component={ForgotPassword} path='/forgotpassword' >
           {isAuthenticated ? <Redirect to="/" /> : <ForgotPassword />}
         </Route>

@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/authActions';
+import { clearErrors } from '../actions/errorActions';
 
 
 const Login = () => {
@@ -29,7 +30,10 @@ const Login = () => {
     useEffect(() => {
         if (prevError !== errorState) {
             if (errorState.id === 'LOGIN_FAIL') {
-                setMsg(errorState.msg.error)
+                setMsg(errorState.msg.error);
+                setTimeout(() => {
+                    dispatch(clearErrors());
+                }, 10000)
             } else {
                 setMsg(null);
             }
@@ -70,7 +74,7 @@ const Login = () => {
                                 {errors?.password?.type === "required" && <p className='error'>This field is required</p>}
 
                             </div>
-                            <p className='error'>{msg === 'Wrong Credentials' ? "Invalid username or password" : null}</p>
+                            <p className='error'>{msg === 'Wrong Credentials' ? "Invalid email or password" : null}</p>
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                         </form>
                         <Link to='/forgotpassword'>Already forgot your password?</Link>

@@ -121,10 +121,10 @@ const resetPassword = async (req, res, next) => {
 // @access Public
 router.route("/forgotpassword").post(forgotPassword);
 
-// @route PUT api/auth/forgotpassword
+// @route PUT api/auth/passwordreset
 // @desc Reset Password
 // @access Public
-router.route("/resetpassword/:resetToken").put(resetPassword);
+router.route("/passwordreset/:resetToken").put(resetPassword);
 
 // @route   GET api/auth/user
 // @desc    Get user data
