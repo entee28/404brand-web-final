@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../actions/authActions';
+import { loadUser, login } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
 
@@ -13,6 +13,9 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         dispatch(login(data));
+        setTimeout(() => {
+            dispatch(loadUser());
+        }, 1000)
     };
 
     function usePrevious(value) {

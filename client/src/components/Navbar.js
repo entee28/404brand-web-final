@@ -14,7 +14,7 @@ const Navbar = ({ click }) => {
     const getCartCount = () => cartItems.length;
 
     const auth = useSelector(state => state.auth);
-    const { isAuthenticated } = auth;
+    const { isAuthenticated, user } = auth;
 
     const dispatch = useDispatch();
 
@@ -51,11 +51,17 @@ const Navbar = ({ click }) => {
                     <li>
                         {isAuthenticated ?
                             (
-                                <button className='btn-default' onClick={handleLogout}>
-                                    <NavLink to='/'>
-                                        <img src={boxarrowleft} alt="cart" className='icon' />
-                                    </NavLink>
-                                </button>
+                                <>
+                                    {
+                                        user ? <span>Hello, <strong>{user.firstname}</strong></span> : null
+                                    }
+                                    <button className='btn-default' onClick={handleLogout}>
+                                        <NavLink to='/'>
+                                            <img src={boxarrowleft} alt="cart" className='icon' />
+                                        </NavLink>
+                                    </button>
+                                </>
+
                             ) :
                             (
                                 <button className='btn-default' onClick={handleAuthClick}>

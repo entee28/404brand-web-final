@@ -25,7 +25,7 @@ function App() {
   }, [])
 
   const auth = useSelector(state => state.auth);
-  const { isAuthenticated } = auth;
+  const { isAuthenticated, user } = auth;
 
   return (
     <BrowserRouter>

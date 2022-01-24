@@ -190,45 +190,95 @@ img {
 // HOME
 
 // Feature Landing
-.feature-container {
+.bg {
     height: 100vh;
     background-image: url(./res/feature.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
-    color: white;
 }
 
-.feature-brand {
-    display: flex;
-    justify-content: center;
-    font-family: "Input Sans";
-    margin: 0;
-    padding: 1.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-    font-size: 0.9rem;
+svg {
+    width: 1em;
+    margin: 2em auto;
+    display: block;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 }
 
-.feature {
-    display: flex;
-    height: 85vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.feature-container {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.content {
+    color: #fff;
+    text-align: center;
+
+    h1 {
+        // font-weight: bold;
+        font-size: 4.5rem;
+        margin-top: 0.75rem;
+    }
 
     p {
         font-weight: bold;
         font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        // margin-bottom: 0.5rem;
+
+        &.feature-brand {
+            display: flex;
+            justify-content: center;
+            font-family: "Input Sans";
+            margin: 0;
+            padding: 1.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
     }
 
-    h2 {
-        font-weight: bold;
-        font-size: 4.5rem;
-        margin-top: 0.75rem;
+    .text-reveal {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: all 1.5s;
+        transform: translateY(-3em);
+    }
+
+    .btn {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
 }
+
+// .feature-container {
+//     height: 100vh;
+//     background-image: url(./res/feature.jpg);
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     color: white;
+// }
+
+// .feature {
+//     display: flex;
+//     height: 85vh;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+
+//     p {
+//         font-weight: bold;
+//         font-size: 0.9rem;
+//         margin-bottom: 0.5rem;
+//     }
+
+//     h2 {
+//         font-weight: bold;
+//         font-size: 4.5rem;
+//         margin-top: 0.75rem;
+//     }
+// }
 
 // Feature Products
 .featured-products {
@@ -425,7 +475,8 @@ footer {
 }
 
 .navbar-container {
-    max-width: 95%;
+    max-width: 1400px;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     align-items: center;
