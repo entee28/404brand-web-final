@@ -3,7 +3,6 @@ import { gsap, Expo } from 'gsap'
 
 const FeatureLanding = () => {
     const tl = useRef();
-
     const el = useRef();
     const q = gsap.utils.selector(el);
 
