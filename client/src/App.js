@@ -16,6 +16,7 @@ import ForgotPassword from './components/ForgotPassword';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadUser } from './actions/authActions';
+import ChangePassword from './components/ChangePassword';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route component={ForgotPassword} path='/forgotpassword' >
           {isAuthenticated ? <Redirect to="/" /> : <ForgotPassword />}
         </Route>
+        <Route component={ChangePassword} path='/changepassword' />
       </Switch>
       <Footer />
     </BrowserRouter>

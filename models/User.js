@@ -51,7 +51,7 @@ userSchema.methods.matchPassword = async function (password) {
 }
 
 userSchema.methods.getSignedToken = function () {
-    return jwt.sign({ id: this._id }, config.get("JWT_SEC"), { expiresIn: config.get("JWT_EXPIRE") })
+    return jwt.sign({ id: this._id }, config.get("JWT_SEC"), {})
 }
 
 userSchema.methods.getResetPasswordToken = function () {

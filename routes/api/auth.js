@@ -116,6 +116,25 @@ const resetPassword = async (req, res, next) => {
     }
 }
 
+const changePassword = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.body.id)
+
+        if (!user) {
+            return next(new ErrorResponse("Unauthorized request!", 401))
+        }
+
+        user.password = req.body.password;
+
+        await user.save();
+
+        res.status(200).json({ success: true, data: "Password Changed Successfully" })
+
+    } catch (err) {
+        next(err)
+    }
+}
+
 // @route POST api/auth/forgotpassword
 // @desc Forget Password
 // @access Public
@@ -125,6 +144,19 @@ router.route("/forgotpassword").post(forgotPassword);
 // @desc Reset Password
 // @access Public
 router.route("/passwordreset/:resetToken").put(resetPassword);
+
+// @route PUT api/auth/changepassword
+// @desc Change Password
+// @access Private
+router.put('/changepassword', verifyToken, (req, res, next) => {
+    User.findById(req.user.id)
+        .then(user => {
+            if (!user) return next(new ErrorResponse("Unauthorized request!", 401));
+
+            user.password = req.body.password;
+            user.save().then(() => res.status(200).json({ success: true, data: "Password Changed Successfully" }));
+        }).catch(err => next(err))
+})
 
 // @route   GET api/auth/user
 // @desc    Get user data

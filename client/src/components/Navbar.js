@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import cartt from '../res/bag.svg'
 import person from '../res/person-fill.svg'
@@ -45,10 +45,17 @@ const Navbar = () => {
 
     const handleLogout = () => {
         dispatch(logout());
+        setOpen(!isOpen);
     }
 
     const handleAuthClick = () => {
         dispatch(clearErrors());
+    }
+
+    const [isOpen, setOpen] = useState(false);
+
+    const toggle = () => {
+        setOpen(!isOpen);
     }
 
     return (
@@ -78,19 +85,12 @@ const Navbar = () => {
                 </ul>
 
                 <ul className="navbar-nav-right">
-                    <li>
+                    <li className='toast-trigger'>
                         {isAuthenticated ?
                             (
-                                <>
-                                    {/* {
-                                        user ? <span>Hello, <strong>{user.firstname}</strong></span> : null
-                                    } */}
-                                    <button className='btn-default' onClick={handleLogout}>
-                                        <NavLink to='/'>
-                                            <img src={person} alt="cart" className='icon' />
-                                        </NavLink>
-                                    </button>
-                                </>
+                                <button className='btn-default toast-trigger' onClick={toggle}>
+                                    <img src={person} alt="cart" className='icon' />
+                                </button>
 
                             ) :
                             (
@@ -99,8 +99,20 @@ const Navbar = () => {
                                         <img src={signin} alt="cart" className='icon' />
                                     </NavLink>
                                 </button>
-
                             )}
+                        {isOpen ? (
+                            <div className='toast'>
+                                {user ? <span>Hello, <strong>{user.firstname}</strong> </span> : null}
+                                <ul>
+                                    <li>
+                                        <NavLink to='/' onClick={handleLogout}>Logout</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/changepassword'>Change Password</NavLink>
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : null}
                     </li>
                     <li>
                         <NavLink to='/cart'>

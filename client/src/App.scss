@@ -555,6 +555,41 @@ footer {
     }
 }
 
+// User Toast
+.toast {
+    background-color: #fdfbfb;
+    box-shadow: inset 0 4px 3px -3px rgb(0 0 0 / 10%), inset 0 4px 2px -2px rgb(0 0 0 / 7%);
+    width: 180px;
+    height: auto;
+    padding: 1rem;
+    position: absolute;
+    top: 40px;
+    left: -60px;
+    cursor: auto;
+    text-align: start;
+
+    ul {
+        margin-top: 0.5rem;
+        li {
+            padding: 0.1rem 0;
+
+            a {
+                text-transform: capitalize;
+                font-family: "Input Sans";
+                font-size: 0.9rem;
+
+                &:hover {
+                    color: rgba($color: #000000, $alpha: 0.65);
+                }
+            }
+        }
+    }
+}
+
+.toast-trigger {
+    position: relative;
+}
+
 // Cart Screen
 .cartscreen {
     display: flex;
@@ -1021,5 +1056,9 @@ footer {
             height: 15px;
             transition: all 0.2s ease-in;
         }
+    }
+
+    .toast {
+        width: 150px;
     }
 }

@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-
-const ResetPassword = ({ match }) => {
+const ChangePassword = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -24,17 +24,27 @@ const ResetPassword = ({ match }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
 
+    const auth = useSelector(state => state.auth);
+
     const onSubmit = async (formData) => {
         const { password } = formData;
+        const { token } = auth;
+
         const config = {
-            header: {
-                "Content-Type": "application/json",
+            headers: {
+                "Content-type": "application/json",
             },
         };
 
+        // If token, add to headers
+        if (token) {
+            console.log(token);
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+
         try {
             const { data } = await axios.put(
-                `/api/auth/passwordreset/${match.params.resetToken}`,
+                `/api/auth/changepassword`,
                 {
                     password,
                 },
@@ -56,7 +66,7 @@ const ResetPassword = ({ match }) => {
             <div className='register-container'>
                 <div className="register-wrapper">
                     <div className='wrapper-flex'>
-                        <h2>Reset Password</h2>
+                        <h2>Change Password</h2>
                         <form className='form-flex' value="sentMessage" onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-row">
                                 <label htmlFor="password" className='input'>
@@ -76,7 +86,7 @@ const ResetPassword = ({ match }) => {
                                 <p className='error'>{errors.confirmPassword?.message}</p>
                             </div>
                             {error && <p className="error">{error}</p>}
-                            {success && <p className="success">{success} <Link to='/login'>Login</Link></p>}
+                            {success && <p className="success">{success}</p>}
                             <button className="btn btn-reversed" type='submit'>Submit</button>
                         </form>
                     </div>
@@ -86,4 +96,4 @@ const ResetPassword = ({ match }) => {
     );
 };
 
-export default ResetPassword;
+export default ChangePassword;
