@@ -13,7 +13,7 @@ const Shop = (props) => {
     const { products } = props.product;
 
     return (
-        <div>
+        <>
             <Navbar />
             <div className="shop">
                 <div className="shop-grid">
@@ -28,7 +28,7 @@ const Shop = (props) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

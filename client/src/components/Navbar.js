@@ -8,6 +8,7 @@ import { logout } from '../actions/authActions'
 import { clearErrors } from '../actions/errorActions'
 import times from '../res/times-solid.svg'
 import { gsap, Back } from 'gsap'
+import signin from '../res/sign-in.svg'
 
 const Navbar = () => {
     const tl = useRef();
@@ -81,21 +82,21 @@ const Navbar = () => {
                         {isAuthenticated ?
                             (
                                 <>
-                                    {
+                                    {/* {
                                         user ? <span>Hello, <strong>{user.firstname}</strong></span> : null
-                                    }
-                                    {/* <button className='btn-default' onClick={handleLogout}>
+                                    } */}
+                                    <button className='btn-default' onClick={handleLogout}>
                                         <NavLink to='/'>
-                                            <img src={boxarrowleft} alt="cart" className='icon' />
+                                            <img src={person} alt="cart" className='icon' />
                                         </NavLink>
-                                    </button> */}
+                                    </button>
                                 </>
 
                             ) :
                             (
-                                <button className='btn-default' onClick={handleAuthClick}>
-                                    <NavLink to='/login'>
-                                        <img src={person} alt="cart" className='icon' />
+                                <button className='btn-default' >
+                                    <NavLink to='/login' onClick={handleAuthClick}>
+                                        <img src={signin} alt="cart" className='icon' />
                                     </NavLink>
                                 </button>
 

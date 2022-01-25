@@ -337,7 +337,7 @@ svg {
 }
 
 .divider {
-    width: 100%;
+    width: 93%;
     height: 1px;
     background-color: #ccc;
     margin: 2rem auto;
@@ -475,8 +475,7 @@ footer {
 }
 
 .navbar-container {
-    max-width: 1400px;
-    width: 95%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -511,7 +510,7 @@ footer {
     display: flex;
 
     li {
-        padding-right: 1.5rem;
+        padding-left: 1.5rem;
     }
 
     a {
@@ -840,6 +839,7 @@ footer {
     height: 100%;
     padding: 2em;
     clip-path: circle(0%);
+    z-index: 1;
 
     .exit {
         position: absolute;
@@ -932,7 +932,7 @@ footer {
 }
 
 // Responsive
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
     .navbar-container {
         .navbar-brand {
             order: 1;
@@ -955,6 +955,71 @@ footer {
             li {
                 padding-right: 0rem;
             }
+        }
+    }
+
+    .highlight-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        &.reversed {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product {
+        max-width: 95%;
+    }
+
+    .register-wrapper {
+        width: 80%;
+    }
+
+    .content {
+        h1 {
+            font-size: 3.5rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        font-size: 0.8rem;
+    }
+
+    .box {
+        h3 {
+            font-size: 3.5rem;
+        }
+    }
+}
+
+@media (max-width: 525px) {
+    :root {
+        font-size: 0.7rem;
+    }
+
+    .featured-products {
+        h3 {
+            font-size: 2rem;
+        }
+    }
+
+    .box {
+        h3 {
+            font-size: 3rem;
+        }
+    }
+
+    .social {
+        img {
+            width: 15px;
+            height: 15px;
+            transition: all 0.2s ease-in;
         }
     }
 }
