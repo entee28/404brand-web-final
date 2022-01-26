@@ -72,12 +72,12 @@ const Navbar = () => {
                         <NavLink to='/shop' activeClassName='selected-nav'>Shop</NavLink>
                     </li>
                     <li className='nav-item'>
-                        <NavLink to='/'>About</NavLink>
+                        <NavLink to='/about' activeClassName='selected-nav'>About</NavLink>
                     </li>
                     <li className='nav-item'>
                         <NavLink to='/contact' activeClassName='selected-nav'>Contact</NavLink>
                     </li>
-                    <div class="hamburger" id="menu-btn" type="button" onClick={() => tl.current.play()}>
+                    <div class="hamburger hamburger-nodisplay" id="menu-btn" type="button" onClick={() => tl.current.play()}>
                         <span class="hamburger-top"></span>
                         <span class="hamburger-middle"></span>
                         <span class="hamburger-bottom"></span>
@@ -133,7 +133,7 @@ const Navbar = () => {
                                 <NavLink to='/shop'>Shop</NavLink>
                             </li>
                             <li>
-                                <NavLink to='/'>About</NavLink>
+                                <NavLink to='/about'>About</NavLink>
                             </li>
                             <li>
                                 <NavLink to='/contact'>Contact</NavLink>

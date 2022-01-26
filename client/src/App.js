@@ -17,6 +17,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadUser } from './actions/authActions';
 import ChangePassword from './components/ChangePassword';
+import About from './components/About';
+import ScrollToTop from './ScrollToTop';
 
 
 function App() {
@@ -30,9 +32,11 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Switch>
         <Route component={Home} path='/' exact />
         <Route component={Shop} path='/shop' />
+        <Route component={About} path='/about' />
         <Route component={Cart} path='/cart' />
         <Route component={Contact} path='/contact' />
         <Route component={Product} path='/product/:id' />
