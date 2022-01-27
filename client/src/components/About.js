@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, Suspense } from 'react';
 import Particle from './Particle';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import SmallParticle from './SmallParticle';
@@ -7,7 +7,9 @@ import times from '../res/times-solid.svg'
 import { gsap, Back } from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin';
 import { Link } from 'react-router-dom';
-import hamburger from '../res/bars-solid.svg'
+import NavbarDark from './NavbarDark';
+import camo from '../res/camo.png'
+import Sphere from './Sphere';
 
 const About = () => {
     const { height, width } = useWindowDimensions();
@@ -56,26 +58,7 @@ const About = () => {
 
     return (
         <div className='about' ref={el}>
-            <img src={hamburger} alt="nav button" className='hamburger-about icon' onClick={() => tl.current.play()} />
-            <div className='overlay'>
-                <a href="#" className='exit' onClick={() => tl.current.reverse(.7)}><img src={times} alt="close" className='icon' /></a>
-
-                <div className="mobile-menu">
-                    <div className="menu-container">
-                        <ul>
-                            <li>
-                                <Link to='/shop'>Shop</Link>
-                            </li>
-                            <li>
-                                <Link to='/about'>About</Link>
-                            </li>
-                            <li>
-                                <Link to='/contact'>Contact</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <NavbarDark />
 
             <div className='particle-content-container'>
                 <div className='fancy-line'></div>
@@ -92,6 +75,32 @@ const About = () => {
                     <color attach='background' args={['#21282a']} />
                     <Particle />
                     <SmallParticle />
+                </Canvas>
+            </div>
+
+            <div className='mission-container' >
+                <div className='mission-img'></div>
+                <div className="mission-content">
+                    <h2>Our Mission</h2>
+                    <p className='pre-para'>404brand is the global leader in device customization. Founded on 11.11.11. Run by robots.</p>
+                    <p>We’re giving you two screen protectors with each order. That’s it. That’s the paragraph.</p>
+                </div>
+            </div>
+
+            <div className="sphere-container">
+                <div className='sphere-content'>
+                    <h1>Make Us Rich</h1>
+                </div>
+
+                <Canvas dpr={Math.min(window.devicePixelRatio, 2)}>
+                    <pointLight position={[2, 3, 4]} color={0xffffff} intensity={0.1} />
+                    <pointLight position={[-1.86, 1, -1.65]} color={0xff0000} intensity={10} />
+                    <pointLight position={[2.13, -3, -1.98]} color={0xe1ff} intensity={6.8} />
+                    <perspectiveCamera position={[0, 0, 2]} fov={75} aspect={width / height} near={0.1} far={100} updateProjectionMatrix />
+                    <color attach='background' args={['#21282a']} />
+                    <Suspense fallback={null}>
+                        <Sphere />
+                    </Suspense>
                 </Canvas>
             </div>
         </div>

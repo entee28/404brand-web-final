@@ -9,8 +9,10 @@ import { clearErrors } from '../actions/errorActions'
 import times from '../res/times-solid.svg'
 import { gsap, Back } from 'gsap'
 import signin from '../res/sign-in.svg'
+import hamburger from '../res/bars-solid.svg'
 
-const Navbar = () => {
+
+const NavbarDark = () => {
     const tl = useRef();
     const el = useRef();
     const q = gsap.utils.selector(el);
@@ -59,7 +61,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='navbar' ref={el}>
+        <nav className='navbar nav-abs' ref={el}>
             <div className='navbar-container'>
                 <div className="navbar-brand">
                     <NavLink to='/' className='brand'>
@@ -77,11 +79,8 @@ const Navbar = () => {
                     <li className='nav-item'>
                         <NavLink to='/contact' activeClassName='selected-nav'>Contact</NavLink>
                     </li>
-                    <div class="hamburger" id="menu-btn" type="button" onClick={() => tl.current.play()}>
-                        <span class="hamburger-top"></span>
-                        <span class="hamburger-middle"></span>
-                        <span class="hamburger-bottom"></span>
-                    </div>
+                    <img src={hamburger} alt="nav button" className='hamburger icon' onClick={() => tl.current.play()} />
+
                 </ul>
 
                 <ul className="navbar-nav-right">
@@ -147,4 +146,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default NavbarDark

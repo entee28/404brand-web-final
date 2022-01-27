@@ -7,7 +7,7 @@ const SmallParticle = (props) => {
     const [mouseX, setMouseX] = useState(0);
 
     useFrame((state, delta) => {
-        ref.current.rotation.y += 0.001;
+        ref.current.rotation.y += 0.0001;
 
         if (mouseX > 0) {
             ref.current.rotation.x += -mouseY * 0.000018;

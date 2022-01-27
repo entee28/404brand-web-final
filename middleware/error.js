@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
     let error = { ...err };
     error.message = err.message;
 
-    console.log(err);
+    // console.log(err); 
 
     if (err.code === 11000) {
         const message = 'Email has already been used';
