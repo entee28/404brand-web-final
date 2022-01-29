@@ -26,6 +26,10 @@ body {
     line-height: 1.4;
 }
 
+html {
+    scroll-snap-type: y mandatory;
+}
+
 ul {
     list-style: none;
 }
@@ -563,6 +567,7 @@ footer {
 .sphere-container {
     height: 100vh;
     width: 100%;
+    scroll-snap-align: start;
 }
 
 .particle-content-container {
