@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -65,6 +66,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

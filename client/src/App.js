@@ -55,7 +55,6 @@ function App() {
         </Route>
         <Route component={ChangePassword} path='/changepassword' />
       </Switch>
-      <Footer />
     </BrowserRouter>
   );
 }

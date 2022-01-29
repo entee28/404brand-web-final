@@ -6,6 +6,7 @@ import Navbar from './Navbar'
 import StripeCheckout from 'react-stripe-checkout'
 import { useEffect, useState } from 'react'
 import { userRequest } from '../requestMethods'
+import Footer from './Footer'
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -80,6 +81,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

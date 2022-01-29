@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser, login } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
+import Footer from './Footer';
 
 
 const Login = () => {
@@ -85,6 +86,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

@@ -5,6 +5,7 @@ import product1 from '../res/product1.jpg'
 import product2 from '../res/product2.jpg'
 import product3 from '../res/product3.jpg'
 import product4 from '../res/product4.jpg'
+import Footer from './Footer'
 
 const Home = () => {
     return (
@@ -73,7 +74,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-
+            <Footer />
         </div>
     )
 }

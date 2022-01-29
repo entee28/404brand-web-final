@@ -8,6 +8,7 @@ import { gsap, Back } from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin';
 import { Link } from 'react-router-dom';
 import NavbarDark from './NavbarDark';
+import Footer from './Footer';
 import camo from '../res/camo.png'
 import Sphere from './Sphere';
 
@@ -90,6 +91,7 @@ const About = () => {
                 <div className="sphere-container">
                     <div className='sphere-content'>
                         <h1>Make Us Rich</h1>
+                        <Link to='/shop' className='btn btn-feature' type='button'>Give Us Some Money</Link>
                     </div>
 
                     <Canvas dpr={Math.min(window.devicePixelRatio, 2)}>
@@ -102,6 +104,10 @@ const About = () => {
                             <Sphere />
                         </Suspense>
                     </Canvas>
+                </div>
+
+                <div className='about-footer-container'>
+                    <Footer />
                 </div>
             </div>
         </>

@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup'
@@ -119,6 +120,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
 
     );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from './Navbar'
+import Footer from './Footer'
 import plus from '../res/plus.svg'
 import dash from '../res/dash.svg'
 
@@ -60,6 +61,7 @@ const Product = ({ match, history }) => {
 
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

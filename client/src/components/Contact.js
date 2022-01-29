@@ -1,6 +1,7 @@
 import Navbar from './Navbar'
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import Footer from './Footer';
 
 const Contact = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -83,6 +84,7 @@ const Contact = () => {
                     <button className="btn btn-feature" type='submit'>Send</button>
                 </form>
             </div>
+            <Footer />
         </div>
     )
 }

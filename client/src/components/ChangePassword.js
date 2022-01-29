@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Footer from './Footer';
 
 const ChangePassword = () => {
     const [error, setError] = useState("");
@@ -92,6 +93,7 @@ const ChangePassword = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

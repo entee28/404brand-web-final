@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Navbar from './Navbar'
+import Footer from './Footer'
 import { connect } from 'react-redux'
 import { getProducts } from '../actions/productActions'
 import PropTypes from 'prop-types'
@@ -28,6 +29,7 @@ const Shop = (props) => {
                     ))}
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
