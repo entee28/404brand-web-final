@@ -3,13 +3,11 @@ import { useRef, useEffect, Suspense } from 'react';
 import Particle from './Particle';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import SmallParticle from './SmallParticle';
-import times from '../res/times-solid.svg'
 import { gsap, Back } from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin';
 import { Link } from 'react-router-dom';
 import NavbarDark from './NavbarDark';
 import Footer from './Footer';
-import camo from '../res/camo.png'
 import Sphere from './Sphere';
 
 const About = () => {
@@ -17,28 +15,11 @@ const About = () => {
     gsap.registerPlugin(CSSRulePlugin);
 
     const tl = useRef();
-    const tl2 = useRef();
     const el = useRef();
     const q = gsap.utils.selector(el);
 
     useEffect(() => {
-        tl.current = gsap.timeline({
-            defaults: {
-                ease: Back.easeOut.config(2),
-                duration: 1
-            }
-        })
-            .paused(true)
-            .to(q('.overlay'), {
-                clipPath: 'circle(100%)',
-            })
-            .to(q('.menu-container'), {
-                opacity: 1,
-                y: '30px',
-                stagger: 0.1
-            }, '-=1')
-
-        tl2.current = gsap.timeline()
+        tl.current = gsap.timeline()
             .from(q('.fancy-line'), {
                 delay: .5,
                 duration: 4,
@@ -54,7 +35,6 @@ const About = () => {
                 y: '30px',
                 duration: 4
             }, '-=2')
-
     }, []);
 
     return (
@@ -79,7 +59,7 @@ const About = () => {
                     </Canvas>
                 </div>
 
-                <div className='mission-container' >
+                <div className='mission-container'>
                     <div className='mission-img'></div>
                     <div className="mission-content">
                         <h2>Our Mission</h2>

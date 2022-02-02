@@ -53,7 +53,9 @@ function App() {
         <Route component={ForgotPassword} path='/forgotpassword' >
           {isAuthenticated ? <Redirect to="/" /> : <ForgotPassword />}
         </Route>
-        <Route component={ChangePassword} path='/changepassword' />
+        <Route component={ChangePassword} path='/changepassword' >
+          {isAuthenticated ? <ChangePassword /> : <Redirect to='/' />}
+        </Route>
       </Switch>
     </BrowserRouter>
   );

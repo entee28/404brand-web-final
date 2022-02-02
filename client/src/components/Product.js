@@ -8,13 +8,14 @@ import dash from '../res/dash.svg'
 // Actions
 import { getProductDetails } from '../actions/productActions'
 import { addToCart } from '../actions/cartActions'
+import Loader from './Loader'
 
 const Product = ({ match, history }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
 
     const productDetails = useSelector(state => state.productDetails);
-    const { product } = productDetails;
+    const { product, loading } = productDetails;
 
     useEffect(() => {
         if (product && match.params.id !== product._id) {
@@ -38,29 +39,37 @@ const Product = ({ match, history }) => {
     return (
         <div>
             <Navbar />
-            <div className="wrapper">
-                <div className="img-container">
-                    <img src={product.imageUrl} alt={product.name} />
-                </div>
-                <div className="info-container">
-                    <h2>{product.name}</h2>
-                    <p>{product.description}</p>
-                    <p className='price'>${product.price}</p>
+            {
+                loading ?
+                    (
+                        <Loader />
+                    ) :
+                    (
+                        <div className="wrapper">
+                            <div className="img-container">
+                                <img src={product.imageUrl} alt={product.name} />
+                            </div>
+                            <div className="info-container">
+                                <h2>{product.name}</h2>
+                                <p>{product.description}</p>
+                                <p className='price'>${product.price}</p>
 
-                    <div className='add-container'>
-                        <div className="amount-container">
-                            <button onClick={() => handleQuantity('dec')} className='plus-dash'><img src={dash} alt="dash" /></button>
-                            <span className="amount">{qty}</span>
-                            <button onClick={() => handleQuantity('inc')} className='plus-dash'><img src={plus} alt="plus" /></button>
+                                <div className='add-container'>
+                                    <div className="amount-container">
+                                        <button onClick={() => handleQuantity('dec')} className='plus-dash'><img src={dash} alt="dash" /></button>
+                                        <span className="amount">{qty}</span>
+                                        <button onClick={() => handleQuantity('inc')} className='plus-dash'><img src={plus} alt="plus" /></button>
+                                    </div>
+                                </div>
+                                {product.countInStock > 0 ?
+                                    (<button className='btn btn-feature' onClick={addToCartHandler}>Add To Cart</button>) :
+                                    (<button className='btn btn-disabled'>Out Of Stock</button>)
+                                }
+
+                            </div>
                         </div>
-                    </div>
-                    {product.countInStock > 0 ?
-                        (<button className='btn btn-feature' onClick={addToCartHandler}>Add To Cart</button>) :
-                        (<button className='btn btn-disabled'>Out Of Stock</button>)
-                    }
-
-                </div>
-            </div>
+                    )
+            }
             <Footer />
         </div>
     )
