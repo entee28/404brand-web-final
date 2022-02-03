@@ -26,10 +26,6 @@ body {
     line-height: 1.4;
 }
 
-html {
-    scroll-snap-type: y mandatory;
-}
-
 ul {
     list-style: none;
 }
@@ -192,6 +188,9 @@ img {
 }
 
 // HOME
+.home-panel {
+    background-color: #fff;
+}
 
 // Feature Landing
 .bg {
@@ -567,11 +566,6 @@ footer {
 .sphere-container {
     height: 100vh;
     width: 100%;
-    scroll-snap-align: start;
-}
-
-.about-footer-container {
-    scroll-snap-align: start;
 }
 
 .particle-content-container {
@@ -618,6 +612,7 @@ footer {
 .mission-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    background-color: #fff;
 }
 
 .mission-img {
@@ -676,6 +671,9 @@ footer {
     }
 }
 
+.footer-panel {
+    background-color: white;
+}
 // Shop
 .shop {
     width: 100%;

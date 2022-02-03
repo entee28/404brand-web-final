@@ -3,16 +3,16 @@ import { useRef, useEffect, Suspense } from 'react';
 import Particle from './Particle';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import SmallParticle from './SmallParticle';
-import { gsap, Back } from 'gsap'
-import CSSRulePlugin from 'gsap/CSSRulePlugin';
+import { gsap } from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import NavbarDark from './NavbarDark';
-import Footer from './Footer';
 import Sphere from './Sphere';
+import Footer from './Footer'
 
 const About = () => {
     const { height, width } = useWindowDimensions();
-    gsap.registerPlugin(CSSRulePlugin);
+    gsap.registerPlugin(ScrollTrigger);
 
     const tl = useRef();
     const el = useRef();
@@ -35,6 +35,16 @@ const About = () => {
                 y: '30px',
                 duration: 4
             }, '-=2')
+
+        let panels = gsap.utils.toArray(q('.panel'));
+        panels.forEach((panel, i) => {
+            ScrollTrigger.create({
+                trigger: panel,
+                start: 'top top',
+                pin: true,
+                pinSpacing: false
+            })
+        })
     }, []);
 
     return (
@@ -42,7 +52,7 @@ const About = () => {
             <NavbarDark />
             <div className='about' ref={el}>
 
-                <div className='particle-container' >
+                <div className='particle-container panel' >
                     <div className='particle-content-container'>
                         <div className='fancy-line'></div>
                         <div className="particle-content">
@@ -59,7 +69,7 @@ const About = () => {
                     </Canvas>
                 </div>
 
-                <div className='mission-container'>
+                <div className='mission-container panel'>
                     <div className='mission-img'></div>
                     <div className="mission-content">
                         <h2>Our Mission</h2>
@@ -68,7 +78,7 @@ const About = () => {
                     </div>
                 </div>
 
-                <div className="sphere-container">
+                <div className="sphere-container panel">
                     <div className='sphere-content'>
                         <h1>Make Us Rich</h1>
                         <Link to='/shop' className='btn btn-feature' type='button'>Give Us Some Money</Link>
@@ -86,7 +96,7 @@ const About = () => {
                     </Canvas>
                 </div>
 
-                <div className='about-footer-container'>
+                <div className="panel footer-panel">
                     <Footer />
                 </div>
             </div>
