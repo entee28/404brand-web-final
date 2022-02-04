@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import trash from '../res/trash.svg'
 import plus from '../res/plus.svg'
 import dash from '../res/dash.svg'
-import Footer from './Footer'
 
 const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
 
@@ -40,7 +39,6 @@ const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
             <button className="cartitem_deleteBtn" onClick={() => removeFromCartHandler(item.product)}>
                 <img src={trash} alt="trash" className='icon' />
             </button>
-            <Footer />
         </div>
     )
 }
