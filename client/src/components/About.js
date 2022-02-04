@@ -3,7 +3,7 @@ import { useRef, useEffect, Suspense } from 'react';
 import Particle from './Particle';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import SmallParticle from './SmallParticle';
-import { gsap } from 'gsap'
+import { gsap, Expo } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import NavbarDark from './NavbarDark';
@@ -15,6 +15,7 @@ const About = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = useRef();
+    const tl2 = useRef();
     const el = useRef();
     const q = gsap.utils.selector(el);
 
@@ -36,6 +37,28 @@ const About = () => {
                 duration: 4
             }, '-=2')
 
+        gsap.from(q('.mission-img'), {
+            scale: 0.6,
+            duration: 4,
+            opacity: 0,
+            ease: Expo.easeOut,
+            scrollTrigger: {
+                trigger: q('.mission-img'),
+                scrub: 1,
+            }
+        })
+
+        gsap.from(q('.mission-content'), {
+            scale: 0.6,
+            duration: 4,
+            opacity: 0,
+            ease: Expo.easeOut,
+            scrollTrigger: {
+                trigger: q('.mission-content'),
+                scrub: 1,
+            }
+        })
+
         let panels = gsap.utils.toArray(q('.panel'));
         panels.forEach((panel, i) => {
             ScrollTrigger.create({
@@ -44,7 +67,8 @@ const About = () => {
                 pin: true,
                 pinSpacing: false
             })
-        })
+        });
+
     }, []);
 
     return (

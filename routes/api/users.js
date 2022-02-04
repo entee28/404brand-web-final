@@ -7,7 +7,7 @@ const { verifyTokenAndAdmin, verifyTokenAndAuthorization } = require('../../midd
 // @access Private
 router.put('/:id', verifyTokenAndAuthorization, (req, res) => {
     if (req.body.password) {
-        req.body.password = CryptoJS.AES.encrypt(req.body.password, config.get('PASS_SEC').toString());
+        req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC.toString() || config.get('PASS_SEC').toString());
     }
 
     User.findByIdAndUpdate(req.params.id, {

@@ -2,7 +2,7 @@ const config = require('config');
 
 const router = require('express').Router();
 
-const key = config.get('STRIPE_KEY');
+const key = process.env.STRIPE_KEY || config.get('STRIPE_KEY');
 const stripe = require('stripe')(key);
 
 router.post("/payment", (req, res) => {
