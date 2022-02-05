@@ -11,13 +11,37 @@ import Sphere from './Sphere';
 import Footer from './Footer'
 
 const About = () => {
+    const section1 = [];
+    const section2 = [];
+    const section3 = [];
+    const sections = [section1, section2, section3];
+    const wrapperNames = ['wrapper1', 'wrapper2', 'wrapper3'];
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    for (let i = 0; i < 4; i++) {
+        section1.push(`https://source.unsplash.com/random/1240x874?sig=${getRandomInt(0, 206)}`);
+        section2.push(`https://source.unsplash.com/random/1240x874?sig=${getRandomInt(0, 206)}`);
+        section3.push(`https://source.unsplash.com/random/1240x874?sig=${getRandomInt(0, 206)}`);
+    }
+
     const { height, width } = useWindowDimensions();
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = useRef();
-    const tl2 = useRef();
     const el = useRef();
     const q = gsap.utils.selector(el);
+
+    const w0 = useRef();
+    const w1 = useRef();
+    const w2 = useRef();
+    const w3 = useRef();
+    const w4 = useRef();
+    const wrapperRef = [w0, w1, w2, w3, w4];
 
     useEffect(() => {
         tl.current = gsap.timeline()
@@ -59,16 +83,28 @@ const About = () => {
             }
         })
 
-        let panels = gsap.utils.toArray(q('.panel'));
-        panels.forEach((panel, i) => {
-            ScrollTrigger.create({
-                trigger: panel,
-                start: 'top top',
-                pin: true,
-                pinSpacing: false
-            })
-        });
+        // let panels = gsap.utils.toArray(q('.panel'));
+        // panels.forEach((panel, i) => {
+        //     ScrollTrigger.create({
+        //         trigger: panel,
+        //         start: 'top top',
+        //         pin: true,
+        //         pinSpacing: false
+        //     })
+        // });
 
+        gsap.utils.toArray(q('section')).forEach((section, index) => {
+            const w = wrapperRef[index];
+            const [x, xEnd] = (index % 2) ? ['100%', (w.current.scrollWidth - section.offsetWidth) * -1] : [w.current.scrollWidth * -1, 0];
+            console.log(w.current.scrollWidth, section.offsetWidth);
+            gsap.fromTo(q(`.wrapper${index}`), { x }, {
+                x: xEnd,
+                scrollTrigger: {
+                    trigger: section,
+                    scrub: 0.5
+                }
+            });
+        });
     }, []);
 
     return (
@@ -102,7 +138,7 @@ const About = () => {
                     </div>
                 </div>
 
-                <div className="sphere-container panel">
+                {/* <div className="sphere-container panel">
                     <div className='sphere-content'>
                         <h1>Make Us Rich</h1>
                         <Link to='/shop' className='btn btn-feature' type='button'>Give Us Some Money</Link>
@@ -118,6 +154,43 @@ const About = () => {
                             <Sphere />
                         </Suspense>
                     </Canvas>
+                </div> */}
+
+                <div className="gallery-container">
+                    <div className="demo-wrapper">
+                        {/* <header className="df aic jcc">
+                            <div>
+                                <h1>ScrollTrigger</h1>
+                                <h2>demo</h2>
+                            </div>
+                        </header> */}
+                        <section className="demo-text">
+                            <div className="wrapper0 wrapper text" ref={w0}>
+                                404404404404404404404404404
+                            </div>
+                        </section>
+                        {sections.map((value, index) => {
+                            return (
+                                <section className="demo-gallery" id={value}>
+                                    <ul className={wrapperNames[index] + ' wrapper'} ref={wrapperRef[index + 1]}>
+                                        {value.map((value, index) => {
+                                            return (
+                                                <li className="item" key={index}>
+                                                    <img height="874" width="1240" src={value} alt="img" />
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </section>
+                            )
+                        })}
+                        <section className="demo-text">
+                            <div className="wrapper4 wrapper text" ref={w4}>
+                                404404404404404404404404404
+                            </div>
+                        </section>
+                    </div>
+
                 </div>
 
                 <div className="panel footer-panel">

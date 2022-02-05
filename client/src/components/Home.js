@@ -8,6 +8,7 @@ import product4 from '../res/product4.jpg'
 import Footer from './Footer'
 import { gsap } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     gsap.registerPlugin(ScrollTrigger);
@@ -68,36 +69,48 @@ const Home = () => {
                         <div className="box product5">
                             <p>We know you can afford this.</p>
                             <h3>FOLD & FLIP</h3>
-                            <button className='btn'>Prove Us Right</button>
+                            <Link to='/product/61e3d2886d025374a76149cf'>
+                                <button className='btn'>Prove Us Right</button>
+                            </Link>
                         </div>
                         <div className="box product6">
                             <p>It's either this or a screen replacement.</p>
                             <h3>Glass</h3>
-                            <button className='btn'>Save A Screen</button>
+                            <Link to='/product/61e3d1726d025374a76149ca'>
+                                <button className='btn'>Save A Screen</button>
+                            </Link>
                         </div>
                     </div>
                     <div className="highlight-container reversed">
                         <div className="box product7">
                             <p>Goodbye dental floss.</p>
                             <h3>AIRPODS</h3>
-                            <button className='btn'>Hello Grip Case</button>
+                            <Link to='/product/61e3d5bf6d025374a76149da'>
+                                <button className='btn'>Hello Grip Case</button>
+                            </Link>
                         </div>
                         <div className="box product8">
                             <p>It's like the apocalypse, but on your phone.</p>
                             <h3>ROBOT CAMO</h3>
-                            <button className='btn'>Visit The Future</button>
+                            <Link to='/product/61e3d1726d025374a76149ca'>
+                                <button className='btn'>Visit The Future</button>
+                            </Link>
                         </div>
                     </div>
                     <div className="highlight-container">
                         <div className="box product9">
                             <p>Because vaccines won't make you less ugly.</p>
                             <h3>MASKS</h3>
-                            <button className='btn'>Hide Your Face</button>
+                            <Link to='/product/61e3d8c56d025374a76149dd'>
+                                <button className='btn'>Hide Your Face</button>
+                            </Link>
                         </div>
                         <div className="box product10">
                             <p>Losing your shit has never been more expensive.</p>
                             <h3>AIRTAG</h3>
-                            <button className='btn'>Buy Four</button>
+                            <Link to='/product/61e3d1cb6d025374a76149cd'>
+                                <button className='btn'>Buy Four</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -45,7 +45,7 @@ const Product = ({ match, history }) => {
                         <Loader />
                     ) :
                     (
-                        <div className="wrapper">
+                        <div className="product-wrapper">
                             <div className="img-container">
                                 <img src={product.imageUrl} alt={product.name} />
                             </div>
