@@ -93,6 +93,21 @@ const About = () => {
         //     })
         // });
 
+        ScrollTrigger.create({
+            trigger: q('.particle-container'),
+            start: 'top top',
+            pin: true,
+            pinSpacing: false
+        })
+
+        ScrollTrigger.create({
+            trigger: q('.mission-container'),
+            start: 'top top',
+            end: '+=0.1',
+            pin: true,
+            pinSpacing: false
+        })
+
         gsap.utils.toArray(q('section')).forEach((section, index) => {
             const w = wrapperRef[index];
             const [x, xEnd] = (index % 2) ? ['100%', (w.current.scrollWidth - section.offsetWidth) * -1] : [w.current.scrollWidth * -1, 0];
@@ -138,24 +153,6 @@ const About = () => {
                     </div>
                 </div>
 
-                {/* <div className="sphere-container panel">
-                    <div className='sphere-content'>
-                        <h1>Make Us Rich</h1>
-                        <Link to='/shop' className='btn btn-feature' type='button'>Give Us Some Money</Link>
-                    </div>
-
-                    <Canvas dpr={Math.min(window.devicePixelRatio, 2)}>
-                        <pointLight position={[2, 3, 4]} color={0xffffff} intensity={0.1} />
-                        <pointLight position={[-1.86, 1, -1.65]} color={0xff0000} intensity={10} />
-                        <pointLight position={[2.13, -3, -1.98]} color={0xe1ff} intensity={6.8} />
-                        <perspectiveCamera position={[0, 0, 2]} fov={75} aspect={width / height} near={0.1} far={100} updateProjectionMatrix />
-                        <color attach='background' args={['#21282a']} />
-                        <Suspense fallback={null}>
-                            <Sphere />
-                        </Suspense>
-                    </Canvas>
-                </div> */}
-
                 <div className="gallery-container">
                     <div className="demo-wrapper">
                         {/* <header className="df aic jcc">
@@ -190,8 +187,25 @@ const About = () => {
                             </div>
                         </section>
                     </div>
-
                 </div>
+
+                {/* <div className="sphere-container panel">
+                    <div className='sphere-content'>
+                        <h1>Make Us Rich</h1>
+                        <Link to='/shop' className='btn btn-feature' type='button'>Give Us Some Money</Link>
+                    </div>
+
+                    <Canvas dpr={Math.min(window.devicePixelRatio, 2)}>
+                        <pointLight position={[2, 3, 4]} color={0xffffff} intensity={0.1} />
+                        <pointLight position={[-1.86, 1, -1.65]} color={0xff0000} intensity={10} />
+                        <pointLight position={[2.13, -3, -1.98]} color={0xe1ff} intensity={6.8} />
+                        <perspectiveCamera position={[0, 0, 2]} fov={75} aspect={width / height} near={0.1} far={100} updateProjectionMatrix />
+                        <color attach='background' args={['#21282a']} />
+                        <Suspense fallback={null}>
+                            <Sphere />
+                        </Suspense>
+                    </Canvas>
+                </div> */}
 
                 <div className="panel footer-panel">
                     <Footer />

@@ -45,22 +45,30 @@ const Home = () => {
                     <p>Just give us your money ™</p>
                     <button className='btn btn-feature'>Make us rich</button>
                     <div className='grid-col-2'>
-                        <div className='item'>
-                            <img src={product1} alt="product" />
-                            <h4>Darkplates</h4>
-                        </div>
-                        <div className='item'>
-                            <img src={product2} alt="product" />
-                            <h4>Pastels</h4>
-                        </div>
-                        <div className='item'>
-                            <img src={product3} alt="product" />
-                            <h4>Skins</h4>
-                        </div>
-                        <div className='item'>
-                            <img src={product4} alt="product" />
-                            <h4>Teardown</h4>
-                        </div>
+                        <Link to={`/product/61fe9387eb9792b20d98ff50`}>
+                            <div className='item'>
+                                <img src={product1} alt="product" />
+                                <h4>Darkplates</h4>
+                            </div>
+                        </Link>
+                        <Link to={`/product/61fe95baeb9792b20d990428`}>
+                            <div className='item'>
+                                <img src={product2} alt="product" />
+                                <h4>Pastels</h4>
+                            </div>
+                        </Link>
+                        <Link to={`/product/61fe9701eb9792b20d990943`}>
+                            <div className='item'>
+                                <img src={product3} alt="product" />
+                                <h4>Skins</h4>
+                            </div>
+                        </Link>
+                        <Link to={`/product/61fe97aeeb9792b20d990965`}>
+                            <div className='item'>
+                                <img src={product4} alt="product" />
+                                <h4>Teardown</h4>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="divider"></div>
@@ -92,7 +100,7 @@ const Home = () => {
                         <div className="box product8">
                             <p>It's like the apocalypse, but on your phone.</p>
                             <h3>ROBOT CAMO</h3>
-                            <Link to='/product/61e3d1726d025374a76149ca'>
+                            <Link to='/product/61fe9251dcd7acecd48081e4'>
                                 <button className='btn'>Visit The Future</button>
                             </Link>
                         </div>

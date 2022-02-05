@@ -1,5 +1,5 @@
 const express = require('express');
-const { verifyTokenAndAdmin } = require('../../middleware/verifyToken');
+const { verifyTokenAndAdmin, verifyToken } = require('../../middleware/verifyToken');
 const router = express.Router();
 
 // Product Model
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 // @route POST api/products
 // @desc Create A Product
 // @access Private/Admin
-router.post('/', verifyTokenAndAdmin, (req, res) => {
+router.post('/', verifyToken, (req, res) => {
     const newProduct = new Product({
         name: req.body.name,
         description: req.body.description,
