@@ -6,9 +6,9 @@ import SmallParticle from './SmallParticle';
 import { gsap, Expo } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import NavbarDark from './NavbarDark';
 import Sphere from './Sphere';
 import Footer from './Footer'
+import Navbar from './Navbar';
 
 const About = () => {
     const section1 = [];
@@ -124,7 +124,7 @@ const About = () => {
 
     return (
         <>
-            <NavbarDark />
+            <Navbar nav_abs='nav-abs' />
             <div className='about' ref={el}>
 
                 <div className='particle-container panel' >
