@@ -10,7 +10,7 @@ import Loader from './Loader'
 const Shop = (props) => {
     useEffect(() => {
         props.getProducts()
-    })
+    }, []);
 
     const { products, loading } = props.product;
 

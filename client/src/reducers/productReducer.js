@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCTS_FAIL, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING } from "../actions/types";
+import { GET_PRODUCTS, GET_PRODUCTS_FAIL, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING, UPDATE_PRODUCT } from "../actions/types";
 
 const initialState = {
     products: [],
@@ -27,6 +27,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 products: [action.payload, ...state.products]
+            };
+        case UPDATE_PRODUCT:
+            return {
+                ...state,
+                products: state.products.map((product) => product._id === action.payload._id ? action.payload : product)
             };
         case PRODUCTS_LOADING:
             return {

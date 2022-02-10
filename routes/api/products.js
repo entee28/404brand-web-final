@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 // @route POST api/products
 // @desc Create A Product
 // @access Private/Admin
-router.post('/', verifyToken, (req, res) => {
+router.post('/', verifyTokenAndAdmin, (req, res) => {
     const newProduct = new Product({
         name: req.body.name,
         description: req.body.description,

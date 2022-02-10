@@ -19,6 +19,13 @@ import { loadUser } from './actions/authActions';
 import ChangePassword from './components/ChangePassword';
 import About from './components/About';
 import ScrollToTop from './ScrollToTop';
+import AdminHome from './admin/pages/AdminHome';
+import UserList from './admin/pages/UserList';
+import User from './admin/pages/User';
+import NewUser from './admin/pages/NewUser';
+import ProductList from './admin/pages/ProductList';
+import AdminProduct from './admin/pages/AdminProduct';
+import NewProduct from './admin/pages/NewProduct';
 
 
 function App() {
@@ -55,6 +62,25 @@ function App() {
         </Route>
         <Route component={ChangePassword} path='/changepassword' >
           {isAuthenticated ? <ChangePassword /> : <Redirect to='/' />}
+        </Route>
+        <Route path="/admin/">
+          <AdminHome />
+        </Route>
+        <Route path="/adminUsers">
+          <UserList />
+        </Route>
+        <Route path="/adminUser/:userId">
+          <User />
+        </Route>
+        <Route path="/adminNewUser">
+          <NewUser />
+        </Route>
+        <Route path="/adminProducts">
+          <ProductList />
+        </Route>
+        <Route path="/adminProduct/:productId" component={AdminProduct} />
+        <Route path="/adminNewproduct">
+          <NewProduct />
         </Route>
       </Switch>
     </BrowserRouter>

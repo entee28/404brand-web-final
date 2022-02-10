@@ -68,3 +68,13 @@ export const removeFromCart = (id) => (dispatch, getState) => {
         localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
     }, 500)
 }
+
+export const emptyCart = (id) => (dispatch, getState) => {
+    dispatch({
+        type: types.CART_RESET,
+    })
+
+    setTimeout(() => {
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
+    }, 500)
+}

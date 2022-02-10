@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING, GET_PRODUCTS_FAIL, GET_PRODUCT_DETAILS_SUCCESS, GET_PRODUCT_DETAILS, GET_PRODUCT_DETAILS_RESET, GET_PRODUCT_DETAILS_FAIL } from "./types";
+import { userRequest } from '../requestMethods';
+import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, PRODUCTS_LOADING, GET_PRODUCTS_FAIL, GET_PRODUCT_DETAILS_SUCCESS, GET_PRODUCT_DETAILS, GET_PRODUCT_DETAILS_RESET, GET_PRODUCT_DETAILS_FAIL, UPDATE_PRODUCT } from "./types";
 
 export const setProductsLoading = () => {
     return {
@@ -46,7 +47,7 @@ export const getProductDetails = (id) => dispatch => {
 }
 
 export const deleteProduct = (id) => dispatch => {
-    axios.delete(`/api/products/${id}`)
+    userRequest.delete(`/api/products/${id}`)
         .then(res => dispatch({
             type: DELETE_PRODUCT,
             payload: id
@@ -54,9 +55,18 @@ export const deleteProduct = (id) => dispatch => {
 }
 
 export const addProduct = (product) => dispatch => {
-    axios.post('/api/products', product)
+    userRequest.post('/api/products', product)
         .then(res => dispatch({
             type: ADD_PRODUCT,
+            payload: res.data
+        }))
+
+}
+
+export const updateProduct = (product, id) => dispatch => {
+    userRequest.put(`/api/products/${id}`, product)
+        .then(res => dispatch({
+            type: UPDATE_PRODUCT,
             payload: res.data
         }))
 
