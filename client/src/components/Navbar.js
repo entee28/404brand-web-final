@@ -102,11 +102,12 @@ const Navbar = (props) => {
                             <div className='toast'>
                                 {user ? <span>Hello, <strong>{user.firstname}</strong> </span> : null}
                                 <ul>
-                                    <li>
-                                        <NavLink to='/' onClick={handleLogout}>Logout</NavLink>
-                                    </li>
+                                    {user.isAdmin ? <li><NavLink to='/admin'>Admin</NavLink></li> : null}
                                     <li>
                                         <NavLink to='/changepassword'>Change Password</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/' onClick={handleLogout}>Logout</NavLink>
                                     </li>
                                 </ul>
                             </div>

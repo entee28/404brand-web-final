@@ -1,6 +1,6 @@
 const User = require('../../models/User')
 const router = require('express').Router();
-const { verifyTokenAndAdmin, verifyTokenAndAuthorization } = require('../../middleware/verifyToken')
+const { verifyTokenAndAdmin, verifyTokenAndAuthorization, verifyToken } = require('../../middleware/verifyToken')
 
 // @route PUT api/users/:id
 // @desc Update user
@@ -41,13 +41,16 @@ router.get('/find/:id', verifyTokenAndAdmin, (req, res) => {
 // @route GET api/users
 // @desc Get all user
 // @access Private
-router.get('/', verifyTokenAndAdmin, (req, res) => {
+router.get('/', verifyTokenAndAdmin, async (req, res) => {
     const query = req.query.new;
-    query ? User.find().sort({ _id: -1 }).limit(1) : User.find()
-        .then(users => {
-            res.status(200).json(users);
-        })
-        .catch(err => res.status(500).json(err))
+    try {
+        const users = query
+            ? await User.find().sort({ _id: -1 }).limit(5)
+            : await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 // @route GET api/users/stats
@@ -70,7 +73,8 @@ router.get('/stats', verifyTokenAndAdmin, (req, res) => {
                 total: { $sum: 1 }
             }
         }
-    ]).then(data => res.status(200).json(data))
+    ]).sort({ _id: 1 })
+        .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 })
 module.exports = router;

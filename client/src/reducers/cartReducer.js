@@ -27,6 +27,11 @@ export default function (state = initialState, action) {
                 ...state,
                 cartItems: state.cartItems.filter((x) => x.product !== action.payload)
             }
+        case types.CART_RESET:
+            return {
+                ...state,
+                cartItems: []
+            }
         default:
             return state;
     }

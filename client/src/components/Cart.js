@@ -44,11 +44,16 @@ const Cart = () => {
                     tokenId: stripeToken.id,
                     amount: getCartSubTotal().toFixed(2) * 100,
                 });
-                history.push('/success', { data: res.data });
+                history.push('/success', {
+                    stripeData: res.data,
+                    products: cartItems,
+                    amount: getCartSubTotal().toFixed(2),
+                });
             } catch { }
         };
         stripeToken && makeRequest();
     }, [stripeToken, history])
+
     return (
         <div>
             <Navbar />
