@@ -33,7 +33,7 @@ router.get('/find/:id', verifyTokenAndAdmin, (req, res) => {
     User.findById(req.params.id)
         .then(user => {
             const { password, ...others } = user._doc;
-            res.status(200).json(...others);
+            res.status(200).json(others);
         })
         .catch(err => res.status(500).json(err))
 })
@@ -77,4 +77,21 @@ router.get('/stats', verifyTokenAndAdmin, (req, res) => {
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 })
+
+// @route POST api/auth/register
+// @desc Register User
+// @access Private/Admin
+router.post('/', verifyTokenAndAdmin, (req, res, next) => {
+    const newUser = new User({
+        email: req.body.email,
+        password: req.body.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        isAdmin: req.body.isAdmin
+    });
+
+    newUser.save().then(user => res.status(201).json(user))
+        .catch(err => next(err));
+})
+
 module.exports = router;

@@ -2,7 +2,7 @@ import '../../Admin.scss';
 import Topbar from '../Topbar';
 import Sidebar from '../Sidebar';
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from "../../firebase";
@@ -25,6 +25,8 @@ export default function NewProduct() {
             }
         })
     }
+
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,7 +65,7 @@ export default function NewProduct() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const product = { ...inputs, imageUrl: downloadURL };
                     dispatch(addProduct(product));
-                });
+                }).then(history.push("/adminProducts"));
             }
         );
     }

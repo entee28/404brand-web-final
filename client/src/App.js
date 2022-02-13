@@ -69,9 +69,7 @@ function App() {
         <Route path="/adminUsers">
           <UserList />
         </Route>
-        <Route path="/adminUser/:userId">
-          <User />
-        </Route>
+        <Route path="/adminUser/:userId" component={User} />
         <Route path="/adminNewUser">
           <NewUser />
         </Route>
