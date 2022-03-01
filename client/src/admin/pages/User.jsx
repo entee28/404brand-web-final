@@ -145,7 +145,7 @@ export default function User({ match }) {
                                                     <label>Email</label>
                                                     <input
                                                         type="text"
-                                                        placeholder={user.email}
+                                                        placeholder={info.email}
                                                         className="userUpdateInput"
                                                         name="email"
                                                         onChange={handleChange}
