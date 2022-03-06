@@ -142,7 +142,7 @@ export default function AdminProduct({ match }) {
                             <div className="admin-product">
                                 <div className="productTitleContainer">
                                     <h1 className="productTitle">Product</h1>
-                                    <Link to="/adminNewproduct">
+                                    <Link to="/admin/newProduct">
                                         <button className="productAddButton">Create</button>
                                     </Link>
                                 </div>

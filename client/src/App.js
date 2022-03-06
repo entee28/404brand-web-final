@@ -63,23 +63,19 @@ function App() {
         <Route component={ChangePassword} path='/changepassword' >
           {isAuthenticated ? <ChangePassword /> : <Redirect to='/' />}
         </Route>
-        <Route path="/admin/">
-          <AdminHome />
-        </Route>
-        <Route path="/adminUsers">
-          <UserList />
-        </Route>
-        <Route path="/adminUser/:userId" component={User} />
-        <Route path="/adminNewUser">
-          <NewUser />
-        </Route>
-        <Route path="/adminProducts">
-          <ProductList />
-        </Route>
-        <Route path="/adminProduct/:productId" component={AdminProduct} />
-        <Route path="/adminNewproduct">
-          <NewProduct />
-        </Route>
+        <Route path="/admin/"
+          render={({ match: { url } }) => (
+            <>
+              <Route path={`${url}/`} component={AdminHome} exact />
+              <Route path={`${url}/users`} component={UserList} exact />
+              <Route path={`${url}/user/:userId`} component={User} exact />
+              <Route path={`${url}/newUser`} component={NewUser} exact />
+              <Route path={`${url}/products`} component={ProductList} exact />
+              <Route path={`${url}/product/:productId`} component={AdminProduct} exact />
+              <Route path={`${url}/newProduct`} component={NewProduct} exact />
+            </>
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );

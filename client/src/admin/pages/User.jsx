@@ -59,7 +59,7 @@ export default function User({ match }) {
                             <div className="user">
                                 <div className="userTitleContainer">
                                     <h1 className="userTitle">Edit User</h1>
-                                    <Link to="/adminNewUser">
+                                    <Link to="/admin/newUser">
                                         <button className="userAddButton">Create</button>
                                     </Link>
                                 </div>

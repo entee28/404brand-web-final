@@ -42,13 +42,13 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">
-                        <NavLink to="/adminUsers" className="link" activeClassName="active">
+                        <NavLink to="/admin/users" className="link" activeClassName="active">
                             <li className="sidebarListItem">
                                 <PermIdentity className="sidebarIcon" />
                                 Users
                             </li>
                         </NavLink>
-                        <NavLink to="/adminProducts" className="link" activeClassName="active">
+                        <NavLink to="/admin/products" className="link" activeClassName="active">
                             <li className="sidebarListItem">
                                 <Storefront className="sidebarIcon" />
                                 Products
