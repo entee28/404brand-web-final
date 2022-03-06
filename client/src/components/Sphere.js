@@ -1,8 +1,6 @@
 import { useRef, useState } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three';
-import useWindowDimensions from '../hook/useWindowDimensions';
-
 
 const Sphere = (props) => {
     const normalTexture = useLoader(TextureLoader, 'NormalMap.png');

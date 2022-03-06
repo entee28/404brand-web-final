@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import FeatureLanding from './FeatureLanding'
 import Navbar from './Navbar'
 import product1 from '../res/product1.jpg'

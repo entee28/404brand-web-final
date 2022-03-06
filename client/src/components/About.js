@@ -1,11 +1,10 @@
 import { Canvas } from '@react-three/fiber';
-import { useRef, useEffect, Suspense } from 'react';
+import { useRef, useEffect } from 'react';
 import Particle from './Particle';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import SmallParticle from './SmallParticle';
 import { gsap, Expo } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
 import Sphere from './Sphere';
 import Footer from './Footer'
 import Navbar from './Navbar';
@@ -111,7 +110,6 @@ const About = () => {
         gsap.utils.toArray(q('section')).forEach((section, index) => {
             const w = wrapperRef[index];
             const [x, xEnd] = (index % 2) ? ['100%', (w.current.scrollWidth - section.offsetWidth) * -1] : [w.current.scrollWidth * -1, 0];
-            console.log(w.current.scrollWidth, section.offsetWidth);
             gsap.fromTo(q(`.wrapper${index}`), { x }, {
                 x: xEnd,
                 scrollTrigger: {
