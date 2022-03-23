@@ -43,7 +43,9 @@ const Home = () => {
                 <div className='featured-products'>
                     <h3>The Accessories Collection</h3>
                     <p>Just give us your money ™</p>
-                    <button className='btn btn-feature'>Make us rich</button>
+                    <Link to='/shop'>
+                        <button className='btn btn-feature'>Make us rich</button>
+                    </Link>
                     <div className='grid-col-2'>
                         <Link to={`/product/61fe9387eb9792b20d98ff50`}>
                             <div className='item'>
