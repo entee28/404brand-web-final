@@ -125,7 +125,7 @@ export default function AdminProduct({ match }) {
             );
         } else {
             dispatch(updateProduct(inputs, match.params.productId));
-            history.push("/adminProducts");
+            history.push("/admin/products");
         }
 
     }

@@ -65,7 +65,7 @@ export default function NewProduct() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const product = { ...inputs, imageUrl: downloadURL };
                     dispatch(addProduct(product));
-                }).then(history.push("/adminProducts"));
+                }).then(history.push("/admin/products"));
             }
         );
     }

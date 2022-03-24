@@ -45,7 +45,7 @@ export default function User({ match }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateUser(inputs, match.params.userId));
-        history.push("/adminUsers");
+        history.push("/admin/users");
     }
 
     return (
