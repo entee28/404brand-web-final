@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
 const errorHandler = require('./middleware/error')
+const cors = require('cors')
 
 const app = express();
 
@@ -16,6 +17,8 @@ mongoose.connect(process.env.mongoURI || config.get('mongoURI'), {
 })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
+
+app.use(cors({ origin: '*' }));
 
 // Use Routes
 app.use('/api/products', require('./routes/api/products'));
