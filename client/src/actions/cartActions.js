@@ -2,7 +2,7 @@ import * as types from '../actions/types'
 import axios from 'axios'
 
 export const addToCart = (id, qty) => (dispatch, getState) => {
-    axios.get(`/api/products/${id}`)
+    axios.get(`https://brand404.herokuapp.com/api/products/${id}`)
         .then(res => dispatch({
             type: types.ADD_TO_CART,
             payload: {
@@ -21,7 +21,7 @@ export const addToCart = (id, qty) => (dispatch, getState) => {
 }
 
 export const incCart = (id, qty) => (dispatch, getState) => {
-    axios.get(`/api/products/${id}`)
+    axios.get(`https://brand404.herokuapp.com/api/products/${id}`)
         .then(res => dispatch({
             type: types.ADD_TO_CART,
             payload: {
@@ -40,7 +40,7 @@ export const incCart = (id, qty) => (dispatch, getState) => {
 }
 
 export const decCart = (id, qty) => (dispatch, getState) => {
-    axios.get(`/api/products/${id}`)
+    axios.get(`https://brand404.herokuapp.com/api/products/${id}`)
         .then(res => dispatch({
             type: types.ADD_TO_CART,
             payload: {

@@ -38,7 +38,7 @@ export default function AdminHome() {
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await userRequest.get("api/users/stats");
+                const res = await userRequest.get("https://brand404.herokuapp.com/api/users/stats");
                 res.data.map((item) =>
                     setUserStats((prev) => [
                         ...prev,

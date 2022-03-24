@@ -16,7 +16,7 @@ const Contact = () => {
         // Request body
         const body = JSON.stringify(data);
 
-        axios.post('/api/contacts', body, config)
+        axios.post('https://brand404.herokuapp.com/api/contacts', body, config)
             .then(alert('Form submitted!'));
     };
 

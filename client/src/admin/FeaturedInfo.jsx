@@ -13,7 +13,7 @@ export default function FeaturedInfo() {
     useEffect(() => {
         const getIncome = async () => {
             try {
-                const res = await userRequest.get('api/orders/income');
+                const res = await userRequest.get('https://brand404.herokuapp.com/api/orders/income');
                 setIncome(res.data);
                 setPercentage((res.data[1].total * 100) / res.data[0].total - 100);
             } catch { }

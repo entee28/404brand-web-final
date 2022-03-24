@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
         try {
             const { data } = await axios.post(
-                "/api/auth/forgotpassword",
+                "https://brand404.herokuapp.com/api/auth/forgotpassword",
                 formData,
                 config
             );

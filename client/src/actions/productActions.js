@@ -22,7 +22,7 @@ export const removeProductDetails = () => dispatch => {
 
 export const getProducts = () => dispatch => {
     dispatch(setProductsLoading);
-    axios.get('/api/products')
+    axios.get('https://brand404.herokuapp.com/api/products')
         .then(res => dispatch({
             type: GET_PRODUCTS,
             payload: res.data
@@ -35,7 +35,7 @@ export const getProducts = () => dispatch => {
 
 export const getProductDetails = (id) => dispatch => {
     dispatch(setProductDetailsLoading);
-    axios.get(`/api/products/${id}`)
+    axios.get(`https://brand404.herokuapp.com/api/products/${id}`)
         .then(res => dispatch({
             type: GET_PRODUCT_DETAILS_SUCCESS,
             payload: res.data
@@ -47,7 +47,7 @@ export const getProductDetails = (id) => dispatch => {
 }
 
 export const deleteProduct = (id) => dispatch => {
-    userRequest.delete(`/api/products/${id}`)
+    userRequest.delete(`https://brand404.herokuapp.com/api/products/${id}`)
         .then(res => dispatch({
             type: DELETE_PRODUCT,
             payload: id
@@ -55,7 +55,7 @@ export const deleteProduct = (id) => dispatch => {
 }
 
 export const addProduct = (product) => dispatch => {
-    userRequest.post('/api/products', product)
+    userRequest.post('https://brand404.herokuapp.com/api/products', product)
         .then(res => dispatch({
             type: ADD_PRODUCT,
             payload: res.data
@@ -64,7 +64,7 @@ export const addProduct = (product) => dispatch => {
 }
 
 export const updateProduct = (product, id) => dispatch => {
-    userRequest.put(`/api/products/${id}`, product)
+    userRequest.put(`https://brand404.herokuapp.com/api/products/${id}`, product)
         .then(res => dispatch({
             type: UPDATE_PRODUCT,
             payload: res.data

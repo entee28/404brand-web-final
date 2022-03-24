@@ -22,7 +22,7 @@ export const removeUserDetails = () => dispatch => {
 
 export const getUsers = () => dispatch => {
     dispatch(setUsersLoading);
-    userRequest.get('/api/users')
+    userRequest.get('https://brand404.herokuapp.com/api/users')
         .then(res => dispatch({
             type: GET_USERS,
             payload: res.data
@@ -34,7 +34,7 @@ export const getUsers = () => dispatch => {
 }
 
 export const deleteUser = (id) => dispatch => {
-    userRequest.delete(`/api/users/${id}`)
+    userRequest.delete(`https://brand404.herokuapp.com/api/users/${id}`)
         .then(res => dispatch({
             type: DELETE_USER,
             payload: id
@@ -42,7 +42,7 @@ export const deleteUser = (id) => dispatch => {
 }
 
 export const addUser = (user) => dispatch => {
-    userRequest.post('/api/users', user)
+    userRequest.post('https://brand404.herokuapp.com/api/users', user)
         .then(res => dispatch({
             type: ADD_USER,
             payload: res.data
@@ -50,7 +50,7 @@ export const addUser = (user) => dispatch => {
 }
 
 export const updateUser = (user, id) => dispatch => {
-    userRequest.put(`/api/users/${id}`, user)
+    userRequest.put(`https://brand404.herokuapp.com/api/users/${id}`, user)
         .then(res => dispatch({
             type: UPDATE_USER,
             payload: res.data
@@ -59,7 +59,7 @@ export const updateUser = (user, id) => dispatch => {
 
 export const getUserDetails = (id) => dispatch => {
     dispatch(setUsersLoading);
-    userRequest.get(`/api/users/find/${id}`)
+    userRequest.get(`https://brand404.herokuapp.com/api/users/find/${id}`)
         .then(res => dispatch({
             type: GET_USER_DETAILS_SUCCESS,
             payload: res.data

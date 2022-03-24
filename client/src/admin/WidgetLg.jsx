@@ -14,7 +14,7 @@ export default function WidgetLg() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await userRequest.get("api/orders");
+                const res = await userRequest.get("https://brand404.herokuapp.com/api/orders");
                 setOrders(res.data);
             } catch { }
         };

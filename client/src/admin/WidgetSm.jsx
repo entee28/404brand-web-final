@@ -10,7 +10,7 @@ export default function WidgetSm() {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const res = await userRequest.get("api/users/?new=true");
+                const res = await userRequest.get("https://brand404.herokuapp.com/api/users/?new=true");
                 setUsers(res.data);
             } catch { }
         };

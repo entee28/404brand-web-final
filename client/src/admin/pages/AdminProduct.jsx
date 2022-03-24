@@ -51,7 +51,7 @@ export default function AdminProduct({ match }) {
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await userRequest.get(`/api/orders/income/?pid=${match.params.productId}`);
+                const res = await userRequest.get(`https://brand404.herokuapp.com/api/orders/income/?pid=${match.params.productId}`);
                 const list = res.data.sort((a, b) => {
                     return a._id - b._id
                 })

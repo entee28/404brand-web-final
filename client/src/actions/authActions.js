@@ -33,7 +33,7 @@ export const register = ({ email, password, firstname, lastname }) => dispatch =
     // Request body
     const body = JSON.stringify({ email, password, firstname, lastname });
 
-    axios.post('/api/auth/register', body, config)
+    axios.post('https://brand404.herokuapp.com/api/auth/register', body, config)
         .then(res => dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
@@ -59,7 +59,7 @@ export const login = ({ email, password }) => dispatch => {
     // Request body
     const body = JSON.stringify({ email, password });
 
-    axios.post('/api/auth/login', body, config)
+    axios.post('https://brand404.herokuapp.com/api/auth/login', body, config)
         .then(res => {
             dispatch({
                 type: LOGIN_SUCCESS,
