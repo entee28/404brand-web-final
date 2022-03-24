@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect, HashRouter } from 'react-router-dom'
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Shop from './components/Shop';
@@ -38,7 +38,7 @@ function App() {
   const { isAuthenticated, user } = auth;
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <Switch>
         <Route component={Home} path='/' exact />
@@ -77,7 +77,7 @@ function App() {
           )}
         />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
