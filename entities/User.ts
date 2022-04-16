@@ -5,7 +5,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class User extends BaseEntity {
   @Field(() => Int)
-  @Column()
+  @PrimaryGeneratedColumn()
   id!: number;
 
   @Field()
@@ -20,7 +20,6 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email!: string;
 
-  @Field()
   @Column()
   password!: string;
 

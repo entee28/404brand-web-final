@@ -1,4 +1,4 @@
-import { User } from "entities/User";
+import { User } from "../entities/User";
 import {
   Arg,
   Ctx,
@@ -6,10 +6,12 @@ import {
   InputType,
   Mutation,
   ObjectType,
+  Query,
   Resolver,
 } from "type-graphql";
 import { MyContext } from "types";
 import argon2 from "argon2";
+import { COOKIE_NAME } from "../constants";
 
 declare module "express-session" {
   export interface SessionData {
@@ -87,16 +89,30 @@ export class UserResolver {
         ],
       };
     }
-
     const hashedPassword = await argon2.hash(input.password);
-    const user = await User.create({
-      firstname: input.firstname,
-      lastname: input.lastname,
-      email: input.email,
-      password: hashedPassword,
-    });
+    let user;
 
-    req.session.userId = user.id;
+    try {
+      user = await User.create({
+        firstname: input.firstname,
+        lastname: input.lastname,
+        email: input.email,
+        password: hashedPassword,
+      }).save();
+
+      req.session.userId = user?.id;
+    } catch (err) {
+      if (err.code === "23505") {
+        return {
+          errors: [
+            {
+              field: "email",
+              message: "email already taken",
+            },
+          ],
+        };
+      }
+    }
 
     return { user };
   }
@@ -134,5 +150,30 @@ export class UserResolver {
     req.session.userId = user.id;
 
     return { user };
+  }
+
+  @Query(() => User, { nullable: true })
+  me(@Ctx() { req }: MyContext) {
+    if (!req.session.userId) {
+      return null;
+    }
+
+    return User.findOne({ where: { id: req.session.userId } });
+  }
+
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext): Promise<boolean> {
+    return new Promise((resolve) => {
+      req.session.destroy((err) => {
+        res.clearCookie(COOKIE_NAME);
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+
+        resolve(true);
+      });
+    });
   }
 }

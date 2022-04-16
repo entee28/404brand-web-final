@@ -1,18 +1,17 @@
 import { ApolloServer } from "apollo-server-express";
-import { Product } from "./entities/Product";
+import connectRedis from "connect-redis";
+import cors from "cors";
 import express from "express";
-import { ProductResolver } from "./resolvers/product";
+import session from "express-session";
+import Redis from "ioredis";
 import { buildSchema } from "type-graphql";
 import { DataSource } from "typeorm";
-import cors from "cors";
-import { User } from "./entities/User";
-import Redis from "ioredis";
-import connectRedis from "connect-redis";
-import session from "express-session";
-import { COOKIE_NAME } from "./constants";
-import { __prod__ } from "./constants";
-import { Request, Response } from "express";
 import { MyContext } from "types";
+import { COOKIE_NAME, __prod__ } from "./constants";
+import { Product } from "./entities/Product";
+import { User } from "./entities/User";
+import { ProductResolver } from "./resolvers/product";
+import { UserResolver } from "./resolvers/user";
 
 export const myDataSource = new DataSource({
   type: "postgres",
@@ -60,7 +59,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [ProductResolver],
+      resolvers: [ProductResolver, UserResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({
