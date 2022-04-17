@@ -23,10 +23,13 @@
     "pg": "^8.7.3",
     "stripe": "^8.198.0",
     "type-graphql": "^1.1.1",
-    "typeorm": "^0.3.6"
+    "typeorm": "^0.3.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/connect-redis": "^0.0.18",
+    "@types/nodemailer": "^6.4.4",
+    "@types/uuid": "^8.3.4",
     "argon2": "^0.28.5",
     "concurrently": "^7.0.0",
     "connect-redis": "^6.1.3",

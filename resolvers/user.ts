@@ -11,7 +11,9 @@ import {
 } from "type-graphql";
 import { MyContext } from "types";
 import argon2 from "argon2";
-import { COOKIE_NAME } from "../constants";
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
+import { v4 as uuidv4 } from "uuid";
+import { sendEmail } from "../utils/sendEmail";
 
 declare module "express-session" {
   export interface SessionData {
@@ -59,6 +61,15 @@ class UserResponse {
 
   @Field(() => User, { nullable: true })
   user?: User;
+}
+
+@ObjectType()
+class ChangePasswordResponse {
+  @Field(() => [FieldError], { nullable: true })
+  errors?: FieldError[];
+
+  @Field(() => Boolean)
+  success: boolean;
 }
 
 @Resolver()
@@ -175,5 +186,154 @@ export class UserResolver {
         resolve(true);
       });
     });
+  }
+
+  @Mutation(() => Boolean)
+  async forgetPassword(
+    @Arg("email") email: string,
+    @Ctx() { redis }: MyContext
+  ) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return true;
+    }
+
+    const token = uuidv4();
+
+    await redis.set(FORGET_PASSWORD_PREFIX + token, user.id, "EX", 60 * 10);
+
+    const resetUrl = `http://localhost:3000/passwordreset/${token}`;
+
+    const message = `
+            <h1>You have requested a password reset</h1>
+            <p>Please go to this link to reset your password</p>
+            <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+        `;
+
+    await sendEmail({
+      to: email,
+      subject: "Password Reset Request",
+      text: message,
+    });
+
+    return true;
+  }
+
+  @Mutation(() => UserResponse)
+  async resetPassword(
+    @Arg("token") token: string,
+    @Arg("newPassword") newPassword: string,
+    @Ctx() { req, redis }: MyContext
+  ): Promise<UserResponse> {
+    if (newPassword.length < 6) {
+      return {
+        errors: [
+          {
+            field: "newPassword",
+            message: "Password must have at least 6 characters",
+          },
+        ],
+      };
+    }
+
+    const userId = await redis.get(FORGET_PASSWORD_PREFIX + token);
+    if (!userId) {
+      return {
+        errors: [
+          {
+            field: "token",
+            message: "Token is expired",
+          },
+        ],
+      };
+    }
+
+    const user = await User.findOne({ where: { id: parseInt(userId) } });
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "token",
+            message: "Invalid token",
+          },
+        ],
+      };
+    }
+
+    const password = await argon2.hash(newPassword);
+
+    await User.update({ id: user.id }, { password });
+
+    await redis.del(FORGET_PASSWORD_PREFIX + token);
+
+    req.session.userId = user.id;
+
+    return { user };
+  }
+
+  @Mutation(() => ChangePasswordResponse)
+  async changePassword(
+    @Arg("password") password: string,
+    @Arg("newPassword") newPassword: string,
+    @Ctx() { req }: MyContext
+  ): Promise<ChangePasswordResponse> {
+    if (newPassword.length < 6) {
+      return {
+        errors: [
+          {
+            field: "newPassword",
+            message: "New Password must have at least 6 characters",
+          },
+        ],
+        success: false,
+      };
+    }
+    if (password.length < 6) {
+      return {
+        errors: [
+          {
+            field: "password",
+            message: "Password must have at least 6 characters",
+          },
+        ],
+        success: false,
+      };
+    }
+
+    const userId = req.session.userId;
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "token",
+            message: "User not exists",
+          },
+        ],
+        success: false,
+      };
+    }
+
+    const verified = await argon2.verify(user.password, password);
+
+    if (!verified) {
+      return {
+        errors: [
+          {
+            field: "password",
+            message: "Incorrect password",
+          },
+        ],
+        success: false,
+      };
+    }
+
+    await User.update(
+      { id: user.id },
+      { password: await argon2.hash(newPassword) }
+    );
+
+    return { success: true };
   }
 }
