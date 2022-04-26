@@ -1,5 +1,12 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Cart } from "./Cart";
 
 @ObjectType()
 @Entity()
@@ -27,4 +34,7 @@ export class Product extends BaseEntity {
   @Field()
   @Column()
   imageUrl: string;
+
+  @OneToMany(() => Cart, (cart) => cart.product)
+  cart: Cart[];
 }

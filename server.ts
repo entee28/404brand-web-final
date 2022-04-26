@@ -8,10 +8,13 @@ import { buildSchema } from "type-graphql";
 import { DataSource } from "typeorm";
 import { MyContext } from "types";
 import { COOKIE_NAME, __prod__ } from "./constants";
+import { Cart } from "./entities/Cart";
 import { Product } from "./entities/Product";
 import { User } from "./entities/User";
+import { CartResolver } from "./resolvers/cart";
 import { ProductResolver } from "./resolvers/product";
 import { UserResolver } from "./resolvers/user";
+import { createProductLoader } from "./utils/createProductLoader";
 
 export const myDataSource = new DataSource({
   type: "postgres",
@@ -20,7 +23,7 @@ export const myDataSource = new DataSource({
   password: "200182",
   logging: true,
   synchronize: true,
-  entities: [Product, User],
+  entities: [Product, User, Cart],
 });
 
 const main = async () => {
@@ -59,13 +62,14 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [ProductResolver, UserResolver],
+      resolvers: [ProductResolver, UserResolver, CartResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({
       req,
       res,
       redis,
+      productLoader: createProductLoader(),
     }),
   });
 

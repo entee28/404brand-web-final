@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useProductQuery } from "src/generated/graphql";
+import { useHistory } from "react-router-dom";
+import { useAddCartMutation, useProductQuery } from "../generated/graphql";
 import dash from "../res/dash.svg";
 import plus from "../res/plus.svg";
 import Footer from "./Footer";
 import Loader from "./Loader";
 import Navbar from "./Navbar";
 
-const Product = ({ match, history }: any) => {
+const Product = ({ match }: any) => {
+  const history = useHistory();
+
   const [qty, setQty] = useState(1);
 
   const [{ data, fetching }] = useProductQuery({
@@ -23,10 +26,20 @@ const Product = ({ match, history }: any) => {
     }
   };
 
-  // const addToCartHandler = () => {
-  //   dispatch(addToCart(data!.product!.id, qty));
-  //   history.push("/cart");
-  // };
+  const [, getCart] = useAddCartMutation();
+
+  const handleAddCart = async () => {
+    const cart = await getCart({
+      productId: parseInt(match.params.id),
+      qty,
+    });
+
+    if (!cart) {
+      console.error("add cart failed!");
+    } else {
+      history.push("/cart");
+    }
+  };
 
   if (!data?.product) {
     return (
@@ -72,7 +85,9 @@ const Product = ({ match, history }: any) => {
               </div>
             </div>
             {data?.product.countInStock > 0 ? (
-              <button className="btn btn-feature">Add To Cart</button>
+              <button className="btn btn-feature" onClick={handleAddCart}>
+                Add To Cart
+              </button>
             ) : (
               <button className="btn btn-disabled">Out Of Stock</button>
             )}

@@ -13,10 +13,13 @@ const ioredis_1 = __importDefault(require("ioredis"));
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const constants_1 = require("./constants");
+const Cart_1 = require("./entities/Cart");
 const Product_1 = require("./entities/Product");
 const User_1 = require("./entities/User");
+const cart_1 = require("./resolvers/cart");
 const product_1 = require("./resolvers/product");
 const user_1 = require("./resolvers/user");
+const createProductLoader_1 = require("./utils/createProductLoader");
 exports.myDataSource = new typeorm_1.DataSource({
     type: "postgres",
     database: "brand404",
@@ -24,7 +27,7 @@ exports.myDataSource = new typeorm_1.DataSource({
     password: "200182",
     logging: true,
     synchronize: true,
-    entities: [Product_1.Product, User_1.User],
+    entities: [Product_1.Product, User_1.User, Cart_1.Cart],
 });
 const main = async () => {
     await exports.myDataSource.initialize();
@@ -53,13 +56,14 @@ const main = async () => {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, type_graphql_1.buildSchema)({
-            resolvers: [product_1.ProductResolver, user_1.UserResolver],
+            resolvers: [product_1.ProductResolver, user_1.UserResolver, cart_1.CartResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({
             req,
             res,
             redis,
+            productLoader: (0, createProductLoader_1.createProductLoader)(),
         }),
     });
     await apolloServer.start();

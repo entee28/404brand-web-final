@@ -15,6 +15,15 @@ export type Scalars = {
   Float: number;
 };
 
+export type Cart = {
+  __typename?: 'Cart';
+  product: Product;
+  productId: Scalars['Float'];
+  qty: Scalars['Int'];
+  user: User;
+  userId: Scalars['Float'];
+};
+
 export type ChangePasswordResponse = {
   __typename?: 'ChangePasswordResponse';
   errors?: Maybe<Array<FieldError>>;
@@ -32,8 +41,15 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type MeResponse = {
+  __typename?: 'MeResponse';
+  items?: Maybe<Array<Cart>>;
+  user?: Maybe<User>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  addCart: Cart;
   changePassword: ChangePasswordResponse;
   createProduct: Product;
   forgetPassword: Scalars['Boolean'];
@@ -41,6 +57,12 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   register: UserResponse;
   resetPassword: UserResponse;
+};
+
+
+export type MutationAddCartArgs = {
+  productId: Scalars['Int'];
+  qty: Scalars['Int'];
 };
 
 
@@ -95,7 +117,8 @@ export type ProductInput = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
+  getCart: Array<Cart>;
+  me?: Maybe<MeResponse>;
   product?: Maybe<Product>;
   products: Array<Product>;
 };
@@ -118,7 +141,9 @@ export type User = {
   firstname: Scalars['String'];
   id: Scalars['Int'];
   isAdmin: Scalars['Boolean'];
+  items: Cart;
   lastname: Scalars['String'];
+  product: Product;
 };
 
 export type UserResponse = {
@@ -132,6 +157,14 @@ export type RegularErrorFragment = { __typename?: 'FieldError', field: string, m
 export type RegularUserFragment = { __typename?: 'User', id: number, firstname: string, email: string, isAdmin: boolean };
 
 export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, firstname: string, email: string, isAdmin: boolean } | null };
+
+export type AddCartMutationVariables = Exact<{
+  productId: Scalars['Int'];
+  qty: Scalars['Int'];
+}>;
+
+
+export type AddCartMutation = { __typename?: 'Mutation', addCart: { __typename?: 'Cart', userId: number, productId: number, qty: number } };
 
 export type ChangePasswordMutationVariables = Exact<{
   password: Scalars['String'];
@@ -175,10 +208,15 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, firstname: string, email: string, isAdmin: boolean } | null } };
 
+export type GetCartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCartQuery = { __typename?: 'Query', getCart: Array<{ __typename?: 'Cart', qty: number, product: { __typename?: 'Product', id: number, name: string, price: number, countInStock: number } }> };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, firstname: string, email: string, isAdmin: boolean } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'MeResponse', user?: { __typename?: 'User', id: number, firstname: string, email: string, isAdmin: boolean } | null, items?: Array<{ __typename?: 'Cart', productId: number }> | null } | null };
 
 export type ProductQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -217,6 +255,19 @@ export const RegularUserResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularUserFragmentDoc}`;
+export const AddCartDocument = gql`
+    mutation AddCart($productId: Int!, $qty: Int!) {
+  addCart(productId: $productId, qty: $qty) {
+    userId
+    productId
+    qty
+  }
+}
+    `;
+
+export function useAddCartMutation() {
+  return Urql.useMutation<AddCartMutation, AddCartMutationVariables>(AddCartDocument);
+};
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($password: String!, $newPassword: String!) {
   changePassword(password: $password, newPassword: $newPassword) {
@@ -283,10 +334,32 @@ export const ResetPasswordDocument = gql`
 export function useResetPasswordMutation() {
   return Urql.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument);
 };
+export const GetCartDocument = gql`
+    query GetCart {
+  getCart {
+    product {
+      id
+      name
+      price
+      countInStock
+    }
+    qty
+  }
+}
+    `;
+
+export function useGetCartQuery(options?: Omit<Urql.UseQueryArgs<GetCartQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCartQuery>({ query: GetCartDocument, ...options });
+};
 export const MeDocument = gql`
     query Me {
   me {
-    ...RegularUser
+    user {
+      ...RegularUser
+    }
+    items {
+      productId
+    }
   }
 }
     ${RegularUserFragmentDoc}`;

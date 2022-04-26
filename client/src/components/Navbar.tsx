@@ -91,7 +91,7 @@ const Navbar = (props: Props) => {
 
         <ul className="navbar-nav-right">
           <li className="toast-trigger">
-            {data?.me ? (
+            {data?.me?.user ? (
               <button className="btn-default toast-trigger" onClick={toggle}>
                 <img src={person} alt="cart" className="icon" />
               </button>
@@ -104,13 +104,13 @@ const Navbar = (props: Props) => {
             )}
             {isOpen ? (
               <div className="toast">
-                {data ? (
+                {data?.me?.user ? (
                   <span>
-                    Hello, <strong>{data?.me?.firstname}</strong>{" "}
+                    Hello, <strong>{data?.me?.user?.firstname}</strong>{" "}
                   </span>
                 ) : null}
                 <ul>
-                  {data?.me?.isAdmin ? (
+                  {data?.me?.user?.isAdmin ? (
                     <li>
                       <NavLink to="/admin">Admin</NavLink>
                     </li>
@@ -130,7 +130,9 @@ const Navbar = (props: Props) => {
           <li>
             <NavLink to="/cart">
               <img src={cartt} alt="cart" className="icon" />
-              {/* <span className="cart-badge">{getCartCount()}</span> */}
+              {data?.me?.items ? (
+                <span className="cart-badge">{data.me.items.length}</span>
+              ) : null}
             </NavLink>
           </li>
         </ul>

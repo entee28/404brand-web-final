@@ -3,17 +3,21 @@ import {
   Arg,
   Ctx,
   Field,
+  FieldResolver,
   InputType,
   Mutation,
   ObjectType,
   Query,
   Resolver,
+  Root,
 } from "type-graphql";
 import { MyContext } from "types";
 import argon2 from "argon2";
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { v4 as uuidv4 } from "uuid";
 import { sendEmail } from "../utils/sendEmail";
+import { Cart } from "../entities/Cart";
+import { Product } from "../entities/Product";
 
 declare module "express-session" {
   export interface SessionData {
@@ -70,6 +74,15 @@ class ChangePasswordResponse {
 
   @Field(() => Boolean)
   success: boolean;
+}
+
+@ObjectType()
+class MeResponse {
+  @Field(() => User, { nullable: true })
+  user?: User;
+
+  @Field(() => [Cart], { nullable: true })
+  items?: Cart[];
 }
 
 @Resolver()
@@ -163,13 +176,23 @@ export class UserResolver {
     return { user };
   }
 
-  @Query(() => User, { nullable: true })
-  me(@Ctx() { req }: MyContext) {
+  @Query(() => MeResponse, { nullable: true })
+  async me(@Ctx() { req }: MyContext) {
     if (!req.session.userId) {
       return null;
     }
 
-    return User.findOne({ where: { id: req.session.userId } });
+    const items = await Cart.find({
+      where: { userId: req.session.userId },
+    });
+
+    const user = User.findOne({ where: { id: req.session.userId } });
+
+    if (items.length === 0) {
+      return { user };
+    }
+
+    return { user, items };
   }
 
   @Mutation(() => Boolean)
