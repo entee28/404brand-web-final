@@ -1,10 +1,13 @@
 query GetCart {
   getCart {
+    productId
+    userId
     product {
       id
       name
       price
       countInStock
+      imageUrl
     }
     qty
   }

@@ -55,6 +55,7 @@ export type Mutation = {
   forgetPassword: Scalars['Boolean'];
   login: UserResponse;
   logout: Scalars['Boolean'];
+  qtyCart: Cart;
   register: UserResponse;
   resetPassword: UserResponse;
 };
@@ -84,6 +85,12 @@ export type MutationForgetPasswordArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationQtyCartArgs = {
+  productId: Scalars['Int'];
+  type: Scalars['String'];
 };
 
 
@@ -143,7 +150,6 @@ export type User = {
   isAdmin: Scalars['Boolean'];
   items: Cart;
   lastname: Scalars['String'];
-  product: Product;
 };
 
 export type UserResponse = {
@@ -193,6 +199,14 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 
+export type QtyCartMutationVariables = Exact<{
+  productId: Scalars['Int'];
+  type: Scalars['String'];
+}>;
+
+
+export type QtyCartMutation = { __typename?: 'Mutation', qtyCart: { __typename?: 'Cart', qty: number } };
+
 export type RegisterMutationVariables = Exact<{
   input: RegisterInput;
 }>;
@@ -211,7 +225,7 @@ export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { 
 export type GetCartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCartQuery = { __typename?: 'Query', getCart: Array<{ __typename?: 'Cart', qty: number, product: { __typename?: 'Product', id: number, name: string, price: number, countInStock: number } }> };
+export type GetCartQuery = { __typename?: 'Query', getCart: Array<{ __typename?: 'Cart', productId: number, userId: number, qty: number, product: { __typename?: 'Product', id: number, name: string, price: number, countInStock: number, imageUrl: string } }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -312,6 +326,17 @@ export const LogoutDocument = gql`
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
+export const QtyCartDocument = gql`
+    mutation QtyCart($productId: Int!, $type: String!) {
+  qtyCart(productId: $productId, type: $type) {
+    qty
+  }
+}
+    `;
+
+export function useQtyCartMutation() {
+  return Urql.useMutation<QtyCartMutation, QtyCartMutationVariables>(QtyCartDocument);
+};
 export const RegisterDocument = gql`
     mutation Register($input: RegisterInput!) {
   register(input: $input) {
@@ -337,11 +362,14 @@ export function useResetPasswordMutation() {
 export const GetCartDocument = gql`
     query GetCart {
   getCart {
+    productId
+    userId
     product {
       id
       name
       price
       countInStock
+      imageUrl
     }
     qty
   }

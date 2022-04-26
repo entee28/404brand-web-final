@@ -1,6 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { createClient, dedupExchange, fetchExchange, Provider } from "urql";
+import {
+  createClient,
+  dedupExchange,
+  fetchExchange,
+  gql,
+  Provider,
+} from "urql";
 import AdminHome from "./admin/pages/AdminHome";
 import AdminProduct from "./admin/pages/AdminProduct";
 import NewProduct from "./admin/pages/NewProduct";
@@ -21,14 +27,55 @@ import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
 import Shop from "./components/Shop";
 import Success from "./components/Success";
+import { QtyCartMutationVariables } from "./generated/graphql";
 import ScrollToTop from "./ScrollToTop";
+import { cacheExchange } from "@urql/exchange-graphcache";
 
 const client = createClient({
   url: "http://localhost:4000/graphql",
   fetchOptions: {
     credentials: "include" as const,
   },
-  exchanges: [dedupExchange, fetchExchange],
+  exchanges: [
+    dedupExchange,
+    // cacheExchange({
+    //   updates: {
+    //     Mutation: {
+    //       qtyCart: (_result, args, cache, info) => {
+    //         const { productId, type } = args as QtyCartMutationVariables;
+    //         const data = cache.readFragment(
+    //           gql`
+    //             fragment _ on Cart {
+    //               productId
+    //               userId
+    //               qty
+    //             }
+    //           `,
+    //           { productId }
+    //         );
+    //         if (data) {
+    //           let newQty = 0;
+    //           if (type === "inc") {
+    //             newQty = (data.qty as number) + 1;
+    //           } else if (type === "dec") {
+    //             newQty = (data.qty as number) - 1;
+    //           }
+
+    //           cache.writeFragment(
+    //             gql`
+    //               fragment __ on Cart {
+    //                 qty
+    //               }
+    //             `,
+    //             { productId, qty: newQty }
+    //           );
+    //         }
+    //       },
+    //     },
+    //   },
+    // }),
+    fetchExchange,
+  ],
 });
 
 function App() {

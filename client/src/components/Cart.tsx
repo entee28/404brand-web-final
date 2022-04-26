@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { useGetCartQuery } from "../generated/graphql";
 import CartItem from "./CartItem";
 import Footer from "./Footer";
+import Loader from "./Loader";
 import Navbar from "./Navbar";
 
 const Cart = () => {
   //   const history = useHistory();
 
-  const removeFromCartHandler = () => {};
+  // const removeFromCartHandler = () => {};
 
   const getCartCount = () => {};
 
@@ -39,8 +40,6 @@ const Cart = () => {
 
   const [{ data }] = useGetCartQuery();
 
-  console.log(data);
-
   //   const qtyChangeHandler = (id, qty, type) => {
   //     if (type === "dec") {
   //       dispatch(decCart(id, qty));
@@ -49,13 +48,22 @@ const Cart = () => {
   //     }
   //   };
 
+  if (!data) {
+    return (
+      <>
+        <Navbar />
+        <Loader />
+      </>
+    );
+  }
+
   return (
     <div>
       <Navbar />
       <div className="cartscreen">
         <div className="cartscreen-left">
           <h2>Cart</h2>
-          {!data ? (
+          {data.getCart.length === 0 ? (
             <p>
               Your cart is empty <Link to="/">Go Back</Link>
             </p>
@@ -64,8 +72,7 @@ const Cart = () => {
               <CartItem
                 key={item.product.id}
                 item={item.product}
-                // qtyChangeHandler={qtyChangeHandler}
-                removeFromCartHandler={removeFromCartHandler}
+                Qty={item.qty}
               />
             ))
           )}

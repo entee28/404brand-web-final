@@ -29,6 +29,8 @@ export const myDataSource = new DataSource({
 const main = async () => {
   await myDataSource.initialize();
 
+  // await Cart.delete({});
+
   const app = express();
 
   app.use(

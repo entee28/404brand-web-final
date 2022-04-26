@@ -64,10 +64,13 @@ export class CartResolver {
       return null;
     }
 
-    if (type === "inc") {
-      await Cart.update({ userId, productId }, { qty: cart.qty++ });
-    } else if (type === "dec") {
-      await Cart.update({ userId, productId }, { qty: cart.qty++ });
+    const product = await Product.findOne({ where: { id: productId } });
+    const stock = product!.countInStock;
+
+    if (type === "inc" && cart.qty < stock) {
+      await Cart.update({ userId, productId }, { qty: cart.qty + 1 });
+    } else if (type === "dec" && cart.qty > 1) {
+      await Cart.update({ userId, productId }, { qty: cart.qty - 1 });
     }
 
     return cart;

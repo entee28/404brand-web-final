@@ -1,0 +1,5 @@
+mutation QtyCart($productId: Int!, $type: String!) {
+  qtyCart(productId: $productId, type: $type) {
+    qty
+  }
+}

@@ -1,23 +1,20 @@
-import { User } from "../entities/User";
+import argon2 from "argon2";
 import {
   Arg,
   Ctx,
   Field,
-  FieldResolver,
   InputType,
   Mutation,
   ObjectType,
   Query,
   Resolver,
-  Root,
 } from "type-graphql";
 import { MyContext } from "types";
-import argon2 from "argon2";
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { v4 as uuidv4 } from "uuid";
-import { sendEmail } from "../utils/sendEmail";
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { Cart } from "../entities/Cart";
-import { Product } from "../entities/Product";
+import { User } from "../entities/User";
+import { sendEmail } from "../utils/sendEmail";
 
 declare module "express-session" {
   export interface SessionData {
