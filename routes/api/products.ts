@@ -33,6 +33,8 @@ router.post("/", verifyTokenAndAdmin, (req, res) => {
     price: req.body.price,
     countInStock: req.body.countInStock,
     imageUrl: req.body.imageUrl,
+    author: req.body.author,
+    genre: req.body.genre,
   });
 
   newProduct
