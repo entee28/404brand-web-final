@@ -1,16 +1,15 @@
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../dummyData";
-import { Link } from "react-router-dom";
-import "../../Admin.scss";
-import Topbar from "../Topbar";
-import Sidebar from "../Sidebar";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { deleteProduct, getProducts } from "../../actions/productActions";
+import "../../Admin.scss";
+import Sidebar from "../Sidebar";
+import Topbar from "../Topbar";
 
 export default function ProductList() {
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteProduct(id));
   };
 
@@ -20,7 +19,7 @@ export default function ProductList() {
       field: "product",
       headerName: "Product",
       width: 280,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.imageUrl} alt="" />
@@ -36,10 +35,20 @@ export default function ProductList() {
       width: 160,
     },
     {
+      field: "author",
+      headerName: "Author",
+      width: 160,
+    },
+    {
+      field: "genre",
+      headerName: "Genre",
+      width: 160,
+    },
+    {
       field: "action",
       headerName: "Action",
       width: 150,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <>
             <Link to={"/admin/product/" + params.row._id}>
@@ -55,9 +64,11 @@ export default function ProductList() {
     },
   ];
 
+  //@ts-ignore
   const auth = useSelector((state) => state.auth);
   const { isAuthenticated, user } = auth;
 
+  //@ts-ignore
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
