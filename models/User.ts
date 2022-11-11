@@ -13,7 +13,8 @@ interface IUser {
   password: string;
   resetPasswordToken?: string;
   resetPasswordExpire?: Date;
-  type: "Buyer" | "Seller" | "Admin";
+  type: "Buyer" | "Seller";
+  isAdmin: boolean;
 }
 
 interface IUserMethods {
@@ -54,8 +55,8 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
     resetPasswordExpire: Date,
     type: {
       type: String,
-      default: "Buyer",
-      enum: ["Buyer", "Seller", "Admin"],
+      required: [true, "Type can not be undefined"],
+      enum: ["Buyer", "Seller"],
     },
     isAdmin: {
       type: Boolean,

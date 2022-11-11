@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-export const verifyToken = (req: Request, res: Response, next: any) => {
+export const verifyToken = (req: Request, _: Response, next: any) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];

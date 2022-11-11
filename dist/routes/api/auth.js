@@ -16,6 +16,7 @@ router.post("/register", (req, res, next) => {
         password: req.body.password,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
+        type: req.body.type,
     });
     newUser
         .save()
@@ -98,22 +99,6 @@ const resetPassword = async (req, res, next) => {
         user.resetPasswordExpire = undefined;
         await user.save();
         res.status(200).json({ success: true, data: "Password Reset Success" });
-    }
-    catch (err) {
-        next(err);
-    }
-};
-const changePassword = async (req, res, next) => {
-    try {
-        const user = await User_1.default.findById(req.body.id);
-        if (!user) {
-            return next(new errorResponse_1.default("Unauthorized request!", 401));
-        }
-        user.password = req.body.password;
-        await user.save();
-        res
-            .status(200)
-            .json({ success: true, data: "Password Changed Successfully" });
     }
     catch (err) {
         next(err);

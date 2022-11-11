@@ -60,8 +60,8 @@ const userSchema = new mongoose_1.default.Schema({
     resetPasswordExpire: Date,
     type: {
         type: String,
-        default: "Buyer",
-        enum: ["Buyer", "Seller", "Admin"],
+        required: [true, "Type can not be undefined"],
+        enum: ["Buyer", "Seller"],
     },
     isAdmin: {
         type: Boolean,

@@ -47,6 +47,7 @@ router.delete("/:id", verifyTokenAndAuthorization, (req, res) => {
 router.get("/find/:id", verifyTokenAndAdmin, (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
+      //@ts-ignore
       const { password, ...others } = user?._doc;
       res.status(200).json(others);
     })
@@ -94,7 +95,7 @@ router.get("/stats", verifyTokenAndAdmin, (_, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-// @route POST api/auth/register
+// @route POST api/users
 // @desc Register User
 // @access Private/Admin
 router.post("/", verifyTokenAndAdmin, (req, res, next) => {
