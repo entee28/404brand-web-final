@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Chart from "../Chart";
 import { Publish } from "@material-ui/icons";
 import "../../Admin.scss";
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../actions/productActions";
 import React, { useEffect, useMemo, useState } from "react";
 import { userRequest } from "../../requestMethods";
-import { useHistory } from "react-router-dom";
 import {
   getStorage,
   ref,
@@ -258,8 +257,7 @@ export default function AdminProduct({ match }: any) {
                         alt=""
                         className="productUploadImg"
                       />
-                      {/* @ts-ignore */}
-                      <label for="file">
+                      <label>
                         <Publish />
                       </label>
                       <input
