@@ -31,7 +31,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const errorResponse_1 = __importDefault(require("../utils/errorResponse"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const verifyToken = (req, res, next) => {
+const verifyToken = (req, _, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(" ")[1];

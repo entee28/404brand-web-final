@@ -16,6 +16,7 @@ router.post("/register", (req: Request, res: Response, next: any) => {
     password: req.body.password,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
+    type: req.body.type,
   });
 
   newUser
@@ -126,26 +127,6 @@ const resetPassword = async (req: Request, res: Response, next: any) => {
   }
 };
 
-const changePassword = async (req: Request, res: Response, next: any) => {
-  try {
-    const user = await User.findById(req.body.id);
-
-    if (!user) {
-      return next(new ErrorResponse("Unauthorized request!", 401));
-    }
-
-    user.password = req.body.password;
-
-    await user.save();
-
-    res
-      .status(200)
-      .json({ success: true, data: "Password Changed Successfully" });
-  } catch (err) {
-    next(err);
-  }
-};
-
 // @route POST api/auth/forgotpassword
 // @desc Forget Password
 // @access Public
@@ -163,6 +144,7 @@ router.put(
   "/changepassword",
   verifyToken,
   (req: Request, res: Response, next: any) => {
+    //@ts-ignore
     User.findById(req.user.id)
       .then((user) => {
         if (!user) return next(new ErrorResponse("Unauthorized request!", 401));
@@ -184,6 +166,7 @@ router.put(
 // @desc    Get user data
 // @access  Private
 router.get("/user", verifyToken, (req: Request, res: Response) => {
+  //@ts-ignore
   User.findById(req.user.id)
     .select("-password")
     .then((user) => res.json(user));
