@@ -107,6 +107,7 @@ router.post("/", verifyToken_1.verifyTokenAndAdmin, (req, res, next) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         isAdmin: req.body.isAdmin,
+        type: req.body.type,
     });
     newUser
         .save()
