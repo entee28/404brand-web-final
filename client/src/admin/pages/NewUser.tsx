@@ -28,7 +28,7 @@ export default function NewUser() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(addUser(inputs));
-    history.push("/adminUsers");
+    history.push("/admin/users");
   };
 
   return (
