@@ -56,3 +56,17 @@ export const verifyTokenAndSeller = (
     }
   });
 };
+
+export const verifyTokenAdminSeller = (
+  req: Request,
+  res: Response,
+  next: any
+) => {
+  verifyToken(req, res, () => {
+    if (req.user.type === "Seller" || req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json({ msg: "Unauthorized access!" });
+    }
+  });
+};

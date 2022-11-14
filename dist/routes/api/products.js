@@ -33,14 +33,14 @@ router.post("/", verifyToken_1.verifyTokenAndSeller, (req, res) => {
         .then((product) => res.status(200).json(product))
         .catch((err) => res.status(500).json(err));
 });
-router.put("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => {
+router.put("/:id", verifyToken_1.verifyTokenAdminSeller, (req, res) => {
     Product_1.default.findByIdAndUpdate(req.params.id, {
         $set: req.body,
     }, { new: true })
         .then((product) => res.status(200).json(product))
         .catch((err) => res.status(500).json(err));
 });
-router.delete("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => {
+router.delete("/:id", verifyToken_1.verifyTokenAdminSeller, (req, res) => {
     Product_1.default.findById(req.params.id)
         .then((product) => product === null || product === void 0 ? void 0 : product.remove().then(() => res.json({ success: true })))
         .catch(() => res.status(404).json({ success: false }));

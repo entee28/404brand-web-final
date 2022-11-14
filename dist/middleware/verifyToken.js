@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyTokenAndSeller = exports.verifyTokenAndAdmin = exports.verifyTokenAndAuthorization = exports.verifyToken = void 0;
+exports.verifyTokenAdminSeller = exports.verifyTokenAndSeller = exports.verifyTokenAndAdmin = exports.verifyTokenAndAuthorization = exports.verifyToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const errorResponse_1 = __importDefault(require("../utils/errorResponse"));
 const dotenv = __importStar(require("dotenv"));
@@ -80,4 +80,15 @@ const verifyTokenAndSeller = (req, res, next) => {
     });
 };
 exports.verifyTokenAndSeller = verifyTokenAndSeller;
+const verifyTokenAdminSeller = (req, res, next) => {
+    (0, exports.verifyToken)(req, res, () => {
+        if (req.user.type === "Seller" || req.user.isAdmin) {
+            next();
+        }
+        else {
+            res.status(403).json({ msg: "Unauthorized access!" });
+        }
+    });
+};
+exports.verifyTokenAdminSeller = verifyTokenAdminSeller;
 //# sourceMappingURL=verifyToken.js.map
