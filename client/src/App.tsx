@@ -34,7 +34,6 @@ function App() {
   }, []);
 
   const auth = useSelector((state: RootState) => state.auth);
-  const userStore = useSelector((state: RootState) => state.userDetails);
   const { isAuthenticated, user } = auth;
 
   return (
