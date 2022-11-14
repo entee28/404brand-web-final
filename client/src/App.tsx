@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./actions/authActions";
 import AdminHome from "./admin/pages/AdminHome";
 import AdminProduct from "./admin/pages/AdminProduct";
-import NewProduct from "./admin/pages/NewProduct";
 import NewUser from "./admin/pages/NewUser";
 import ProductList from "./admin/pages/ProductList";
 import User from "./admin/pages/User";
@@ -76,7 +75,6 @@ function App() {
                 component={AdminProduct}
                 exact
               />
-              <Route path={`${url}/newProduct`} component={NewProduct} exact />
             </>
           )}
         />

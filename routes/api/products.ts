@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  verifyTokenAndAdmin,
+  verifyTokenAdminSeller,
   verifyTokenAndSeller,
 } from "../../middleware/verifyToken";
 // Product Model
@@ -50,7 +50,7 @@ router.post("/", verifyTokenAndSeller, (req, res) => {
 // @route PUT api/products/:id
 // @desc Update a product
 // @access Private/Admin
-router.put("/:id", verifyTokenAndAdmin, (req, res) => {
+router.put("/:id", verifyTokenAdminSeller, (req, res) => {
   Product.findByIdAndUpdate(
     req.params.id,
     {
@@ -65,7 +65,7 @@ router.put("/:id", verifyTokenAndAdmin, (req, res) => {
 // @route DELETE api/products/:id
 // @desc Delete A Product
 // @access Private/Admin
-router.delete("/:id", verifyTokenAndAdmin, (req, res) => {
+router.delete("/:id", verifyTokenAdminSeller, (req, res) => {
   Product.findById(req.params.id)
     .then((product) =>
       product?.remove().then(() => res.json({ success: true }))

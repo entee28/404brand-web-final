@@ -45,6 +45,11 @@ export default function ProductList() {
       width: 160,
     },
     {
+      field: "seller",
+      headerName: "Seller ID",
+      width: 220,
+    },
+    {
       field: "action",
       headerName: "Action",
       width: 150,
