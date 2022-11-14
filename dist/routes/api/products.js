@@ -17,7 +17,7 @@ router.get("/:id", (req, res) => {
         .then((product) => res.json(product))
         .catch(() => res.status(404).json({ success: false }));
 });
-router.post("/", verifyToken_1.verifyTokenAndAdmin, (req, res) => {
+router.post("/", verifyToken_1.verifyTokenAndSeller, (req, res) => {
     const newProduct = new Product_1.default({
         name: req.body.name,
         description: req.body.description,
@@ -26,6 +26,7 @@ router.post("/", verifyToken_1.verifyTokenAndAdmin, (req, res) => {
         imageUrl: req.body.imageUrl,
         author: req.body.author,
         genre: req.body.genre,
+        seller: req.body.seller,
     });
     newProduct
         .save()
