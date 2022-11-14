@@ -16,6 +16,7 @@ import {
 } from "firebase/storage";
 import app from "../../firebase";
 import { updateProduct } from "../../actions/productActions";
+import { RootState } from "../../reducers";
 
 type OrderIncome = {
   _id: number;
@@ -28,13 +29,13 @@ type PStats = {
 }[];
 
 export default function AdminProduct({ match }: any) {
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated, user } = auth;
   const dispatch = useDispatch();
 
-  //@ts-ignore
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails = useSelector(
+    (state: RootState) => state.productDetails
+  );
   const { product } = productDetails;
 
   const [pStats, setPStats] = useState<PStats>([]);

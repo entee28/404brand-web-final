@@ -5,10 +5,10 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { addUser } from "../../actions/userActions";
+import { RootState } from "../../reducers";
 
 export default function NewUser() {
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated, user } = auth;
 
   const [inputs, setInputs] = useState({});

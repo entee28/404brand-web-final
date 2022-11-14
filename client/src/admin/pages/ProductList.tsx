@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProduct, getProducts } from "../../actions/productActions";
 import "../../Admin.scss";
+import { RootState } from "../../reducers";
 import Sidebar from "../Sidebar";
 import Topbar from "../Topbar";
 
@@ -69,12 +70,10 @@ export default function ProductList() {
     },
   ];
 
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated, user } = auth;
 
-  //@ts-ignore
-  const product = useSelector((state) => state.product);
+  const product = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getUserDetails, updateUser } from "../../actions/userActions";
 import "../../Admin.scss";
+import { RootState } from "../../reducers";
 import Sidebar from "../Sidebar";
 import Topbar from "../Topbar";
 
@@ -21,12 +22,10 @@ type UserInputs = {
 };
 
 export default function User({ match }: any) {
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated, user } = auth;
 
-  //@ts-ignore
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails = useSelector((state: RootState) => state.userDetails);
   const info = userDetails.user;
 
   const dispatch = useDispatch();
