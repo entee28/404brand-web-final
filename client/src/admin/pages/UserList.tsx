@@ -1,18 +1,15 @@
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "../../Admin.scss";
-import Topbar from "../Topbar";
-import Sidebar from "../Sidebar";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, deleteUser } from "../../actions/userActions";
+import { Link } from "react-router-dom";
+import { deleteUser, getUsers } from "../../actions/userActions";
+import "../../Admin.scss";
+import Sidebar from "../Sidebar";
+import Topbar from "../Topbar";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
-
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteUser(id));
   };
 
@@ -22,7 +19,7 @@ export default function UserList() {
       field: "firstname",
       headerName: "User",
       width: 150,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="userListUser">
             <img
@@ -50,7 +47,7 @@ export default function UserList() {
       field: "action",
       headerName: "Action",
       width: 150,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <>
             <Link to={"/admin/user/" + params.row._id}>
@@ -66,9 +63,10 @@ export default function UserList() {
     },
   ];
 
+  //@ts-ignore
   const auth = useSelector((state) => state.auth);
   const { isAuthenticated, user } = auth;
-
+  //@ts-ignore
   const userList = useSelector((state) => state.users);
   const { users } = userList;
 
@@ -85,6 +83,11 @@ export default function UserList() {
           <div className="container">
             <Sidebar />
             <div className="userList">
+              <div className="userTitleContainer">
+                <Link to="/admin/newUser">
+                  <button className="userAddButton">Create</button>
+                </Link>
+              </div>
               <DataGrid
                 rows={users}
                 disableSelectionOnClick

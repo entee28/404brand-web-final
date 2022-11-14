@@ -181,17 +181,22 @@ export default function AdminProduct({ match }: any) {
                   </div>
                   <div className="productInfoBottom">
                     <div className="productInfoItem">
-                      <span className="productInfoKey">ID: </span>
+                      <span className="productInfoKey">ID:&nbsp;</span>
                       <span className="productInfoValue">{product._id}</span>
                     </div>
-                    {/* <div className="productInfoItem">
-                                                <span className="productInfoKey">sales:</span>
-                                                <span className="productInfoValue">5123</span>
-                                            </div>
-                                            <div className="productInfoItem">
-                                                <span className="productInfoKey">active:</span>
-                                                <span className="productInfoValue">yes</span>
-                                            </div> */}
+                    <div className="productInfoItem">
+                      <span className="productInfoKey">Seller ID:</span>
+                      <span className="productInfoValue">{product.seller}</span>
+                    </div>
+                    <div className="productInfoItem">
+                      <span className="productInfoKey">Author:</span>
+                      <span className="productInfoValue">{product.author}</span>
+                    </div>
+                    <div className="productInfoItem">
+                      <span className="productInfoKey">Genre:</span>
+                      <span className="productInfoValue">{product.genre}</span>
+                    </div>
+
                     <div className="productInfoItem">
                       <span className="productInfoKey">In Stock:</span>
                       <span className="productInfoValue">

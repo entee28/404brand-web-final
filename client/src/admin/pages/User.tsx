@@ -1,19 +1,16 @@
 import {
-  CalendarToday,
-  LocationSearching,
-  MailOutline,
-  PermIdentity,
-  PhoneAndroid,
-  Publish,
   AccountBox,
+  CalendarToday,
+  MailOutline,
+  SupervisedUserCircle,
 } from "@material-ui/icons";
-import { Link, useHistory } from "react-router-dom";
-import "../../Admin.scss";
-import Topbar from "../Topbar";
-import Sidebar from "../Sidebar";
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { getUserDetails, updateUser } from "../../actions/userActions";
+import "../../Admin.scss";
+import Sidebar from "../Sidebar";
+import Topbar from "../Topbar";
 
 type UserInputs = {
   firstname: string;
@@ -55,7 +52,7 @@ export default function User({ match }: any) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(updateUser(inputs, match.params.userId));
-    history.push("/adminUsers");
+    history.push("/admin/users");
   };
 
   return (
@@ -89,6 +86,10 @@ export default function User({ match }: any) {
                     <div className="userShowInfo">
                       <MailOutline className="userShowIcon" />
                       <span className="userShowInfoTitle">{info.email}</span>
+                    </div>
+                    <div className="userShowInfo">
+                      <SupervisedUserCircle className="userShowIcon" />
+                      <span className="userShowInfoTitle">{info.type}</span>
                     </div>
                     <div className="userShowInfo">
                       <CalendarToday className="userShowIcon" />
