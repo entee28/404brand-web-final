@@ -32,6 +32,10 @@ const ProductSchema = new mongoose_1.default.Schema({
     genre: {
         type: String,
     },
+    seller: {
+        type: String,
+        required: true,
+    },
 });
 const Product = mongoose_1.default.model("product", ProductSchema);
 exports.default = Product;

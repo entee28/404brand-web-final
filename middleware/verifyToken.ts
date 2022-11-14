@@ -42,3 +42,17 @@ export const verifyTokenAndAdmin = (req: Request, res: Response, next: any) => {
     }
   });
 };
+
+export const verifyTokenAndSeller = (
+  req: Request,
+  res: Response,
+  next: any
+) => {
+  verifyToken(req, res, () => {
+    if (req.user.type === "Seller") {
+      next();
+    } else {
+      res.status(403).json({ msg: "Unauthorized access!" });
+    }
+  });
+};

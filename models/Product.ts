@@ -8,6 +8,7 @@ interface IProduct {
   imageUrl: string;
   author: string;
   genre?: string;
+  seller: string;
 }
 
 const ProductSchema = new mongoose.Schema<IProduct>({
@@ -37,6 +38,10 @@ const ProductSchema = new mongoose.Schema<IProduct>({
   },
   genre: {
     type: String,
+  },
+  seller: {
+    type: String,
+    required: true,
   },
 });
 

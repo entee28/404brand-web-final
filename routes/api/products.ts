@@ -1,5 +1,8 @@
 import express from "express";
-import { verifyTokenAndAdmin } from "../../middleware/verifyToken";
+import {
+  verifyTokenAndAdmin,
+  verifyTokenAndSeller,
+} from "../../middleware/verifyToken";
 // Product Model
 import Product from "../../models/Product";
 
@@ -26,7 +29,7 @@ router.get("/:id", (req, res) => {
 // @route POST api/products
 // @desc Create A Product
 // @access Private/Admin
-router.post("/", verifyTokenAndAdmin, (req, res) => {
+router.post("/", verifyTokenAndSeller, (req, res) => {
   const newProduct = new Product({
     name: req.body.name,
     description: req.body.description,
@@ -35,6 +38,7 @@ router.post("/", verifyTokenAndAdmin, (req, res) => {
     imageUrl: req.body.imageUrl,
     author: req.body.author,
     genre: req.body.genre,
+    seller: req.body.seller,
   });
 
   newProduct
