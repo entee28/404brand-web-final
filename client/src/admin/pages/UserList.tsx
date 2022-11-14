@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteUser, getUsers } from "../../actions/userActions";
 import "../../Admin.scss";
+import { RootState } from "../../reducers";
 import Sidebar from "../Sidebar";
 import Topbar from "../Topbar";
 
@@ -63,11 +64,9 @@ export default function UserList() {
     },
   ];
 
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated, user } = auth;
-  //@ts-ignore
-  const userList = useSelector((state) => state.users);
+  const userList = useSelector((state: RootState) => state.users);
   const { users } = userList;
 
   const dispatch = useDispatch();

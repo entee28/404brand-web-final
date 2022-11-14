@@ -24,6 +24,8 @@ import UserList from "./admin/pages/UserList";
 import About from "./components/About";
 import ChangePassword from "./components/ChangePassword";
 import ScrollToTop from "./ScrollToTop";
+import { RootState } from "./reducers";
+import CreateProduct from "./components/CreateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +33,8 @@ function App() {
     dispatch(loadUser());
   }, []);
 
-  //@ts-ignore
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
+  const userStore = useSelector((state: RootState) => state.userDetails);
   const { isAuthenticated, user } = auth;
 
   return (
@@ -60,6 +62,13 @@ function App() {
         </Route>
         <Route component={ChangePassword} path="/changepassword">
           {isAuthenticated ? <ChangePassword /> : <Redirect to="/" />}
+        </Route>
+        <Route component={CreateProduct} path="/create-product">
+          {isAuthenticated && user.type === "Seller" ? (
+            <CreateProduct />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
         <Route
           path="/admin/"
